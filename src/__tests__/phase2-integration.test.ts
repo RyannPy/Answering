@@ -20,8 +20,8 @@ console.log(`  Questions: ${parseResult.worksheet.questions.length}`);
 console.log("\nTest 2: Question type coverage");
 const worksheet = parseResult.worksheet;
 const types = worksheet.questions.map((q) => q.type);
-const hasAllTypes = ["mc", "multi", "tf", "short"].every((t) =>
-  types.includes(t as any)
+const hasAllTypes = (["mc", "multi", "tf", "short"] as const).every((t) =>
+  types.includes(t)
 );
 console.log(hasAllTypes ? "✓" : "✕", "All question types present");
 console.log(`  Types: ${[...new Set(types)].join(", ")}`);
@@ -127,7 +127,10 @@ if (shortQ && shortQ.type === "short") {
 
 // Test 7: State isolation simulation
 console.log("\nTest 7: Answer state isolation");
-const answerState: Record<string, any> = {};
+const answerState: Record<
+  string,
+  { questionId: string; value: number; submitted: boolean }
+> = {};
 worksheet.questions.forEach((q, idx) => {
   answerState[q.id] = { questionId: q.id, value: idx, submitted: false };
 });

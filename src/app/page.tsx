@@ -2,7 +2,7 @@
 
 import { parseWorksheet } from "@/parser";
 import { sampleWorksheetText } from "@/fixtures/sample-worksheet";
-import { WorksheetViewer } from "@/components/worksheet/WorksheetViewer";
+import { SessionOrchestrator } from "@/components/session/SessionOrchestrator";
 
 export default function Home() {
   const parseResult = parseWorksheet(sampleWorksheetText);
@@ -27,5 +27,5 @@ export default function Home() {
     );
   }
 
-  return <WorksheetViewer worksheet={parseResult.worksheet} />;
+  return <SessionOrchestrator worksheet={parseResult.worksheet} />;
 }

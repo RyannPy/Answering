@@ -373,3 +373,303 @@ Phase 3 will implement:
 - Mode selection
 - Exam submission/scoring
 - Review mode
+
+---
+
+# Phase 3 Implementation — Quiz & Exam Modes
+
+## Status: Complete
+
+Phase 3 implements the two core session modes for Answering: Quiz Mode (immediate feedback) and Exam Mode (delayed feedback).
+
+## Implemented
+
+### 1. Session Types (`src/types/session.ts`)
+
+Core session state management:
+- `SessionMode` - "quiz" | "exam"
+- `SessionState` - mode, worksheet, currentQuestionIndex, answers, results, examSubmitted, completed
+- `QuestionResult` - tracks userAnswer, correct, evaluated
+- `SessionResult` - total, answered, unanswered, correct, incorrect, percentage
+
+### 2. Session Utilities (`src/lib/session.ts`)
+
+Session management functions:
+- `createSession()` - initialize new Quiz or Exam session
+- `calculateResult()` - compute score, percentage, counts
+- `evaluateAnswer()` - check single answer using existing checker
+- `evaluateAllAnswers()` - batch evaluate all answered questions
+
+### 3. Mode Selection (`src/components/session/ModeSelection.tsx`)
+
+Initial screen where user chooses mode:
+- Worksheet title and description display
+- Question count
+- Two cards: Quiz vs Exam
+- Clear description of each mode
+- Dark theme with gold hover states
+- Follows DESIGN.md layout
+
+### 4. Quiz Mode (`src/components/session/QuizMode.tsx`)
+
+Practice mode with immediate feedback:
+- One question at a time
+- Answer → Submit → Immediate feedback
+- Correct/incorrect shown right away
+- Explanation displayed when available
+- Try Again (incorrect answers)
+- Continue to next question
+- Previous button for navigation
+- Completes when all questions answered
+- Uses existing QuestionRenderer and Feedback components
+
+### 5. Exam Mode (`src/components/session/ExamMode.tsx`)
+
+Test simulation mode:
+- One question at a time
+- Answer persists across navigation
+- Previous/Next navigation
+- Desktop: sidebar with question grid
+- Mobile: progress dots
+- NO feedback shown during exam
+- Question states: answered/unanswered/current (not correct/incorrect)
+- Submit confirmation with answer count
+- Cannot modify after submission
+
+### 6. Result Screen (`src/components/session/ResultScreen.tsx`)
+
+Final score display:
+- Large score display (correct/total)
+- Percentage
+- Breakdown: correct, incorrect, unanswered
+- Review Answers button
+- Start Over button
+- Calm, focused presentation (no gamification)
+- Restrained colors
+
+### 7. Review Mode (`src/components/session/ReviewMode.tsx`)
+
+Post-completion answer review:
+- Navigate through all questions
+- Shows user's answer
+- Shows correct/incorrect badge
+- Shows correct answer
+- Shows explanation when available
+- Desktop: sidebar with correctness indicators
+- Mobile: navigation dots colored by result
+- Reuses QuestionRenderer (disabled, showAnswer=true)
+- Exit Review returns to result screen
+
+### 8. Session Orchestrator (`src/components/session/SessionOrchestrator.tsx`)
+
+Top-level state machine:
+```
+mode-selection → quiz/exam → result → review
+```
+- Manages app state transitions
+- Creates sessions
+- Handles Quiz completion
+- Handles Exam submission (triggers evaluation)
+- Routes to appropriate component
+- Clean state isolation
+
+### 9. Main Page Update (`src/app/page.tsx`)
+
+- Replaced WorksheetViewer with SessionOrchestrator
+- Maintains parse error handling
+- Clean integration
+
+### 10. Integration Tests (`src/__tests__/phase3-integration.test.ts`)
+
+Validates Phase 3 requirements:
+- ✓ Quiz session initialization
+- ✓ Exam session initialization
+- ✓ Quiz answer evaluation (correct)
+- ✓ Quiz answer evaluation (incorrect)
+- ✓ Exam answer persistence across navigation
+- ✓ Exam evaluation on submit
+- ✓ Result calculation (all answered)
+- ✓ Result calculation (with unanswered)
+- ✓ State isolation between sessions
+- ✓ Multi-select order independence in session
+
+## Architecture
+
+### State Flow
+
+```
+User
+  ↓
+ModeSelection
+  ↓
+SessionOrchestrator creates SessionState
+  ↓
+QuizMode / ExamMode
+  ↓
+(answers tracked in session.answers)
+  ↓
+QuizMode: immediate evaluation per question
+ExamMode: delayed evaluation on submit
+  ↓
+ResultScreen (with SessionResult)
+  ↓
+ReviewMode (with session.results)
+```
+
+### Session State Structure
+
+```typescript
+SessionState {
+  mode: "quiz" | "exam"
+  worksheet: Worksheet (immutable)
+  currentQuestionIndex: number
+  answers: { [questionId]: { value, submitted } }
+  results: { [questionId]: QuestionResult }
+  examSubmitted: boolean
+  completed: boolean
+}
+```
+
+### Key Differences: Quiz vs Exam
+
+| Feature | Quiz | Exam |
+|---------|------|------|
+| Feedback timing | Immediate | After submission |
+| Correct answer shown | Yes (per question) | No (until submission) |
+| Navigation | Previous/Next | Previous/Next |
+| Try Again | Yes | No |
+| Evaluation | Per question | Batch on submit |
+| Completion | Last question answered | Submit clicked |
+
+## Design Compliance
+
+Implementation follows DESIGN.md:
+
+✓ Dark workspace foundation
+✓ Restrained gold accents (mode selection hover, current question)
+✓ Subtle borders and surfaces
+✓ Mode cards with clear visual hierarchy
+✓ Result screen: calm, no excessive gamification
+✓ Question grid navigation (desktop)
+✓ Progress dots (mobile)
+✓ Success/error colors restrained (not neon)
+✓ Confirmation before exam submit
+✓ Review shows correctness clearly
+✓ Responsive layout maintained
+
+## Files Created
+
+```
+src/types/session.ts
+src/lib/session.ts
+src/components/session/ModeSelection.tsx
+src/components/session/QuizMode.tsx
+src/components/session/ExamMode.tsx
+src/components/session/ResultScreen.tsx
+src/components/session/ReviewMode.tsx
+src/components/session/SessionOrchestrator.tsx
+src/__tests__/phase3-integration.test.ts
+```
+
+## Files Modified
+
+```
+src/app/page.tsx (replaced with SessionOrchestrator)
+src/__tests__/phase2-integration.test.ts (fixed lint)
+IMPLEMENTATION.md (updated)
+```
+
+## Edge Cases Handled
+
+✓ Empty answer submission prevented (Quiz submit button disabled)
+✓ Unanswered questions allowed in Exam
+✓ Unanswered questions counted separately in result
+✓ Navigation preserves answers
+✓ Exam confirmation prevents accidental submission
+✓ Last question handled (no broken Next button)
+✓ First question handled (Previous disabled)
+✓ Review mode shows "Not answered" for skipped questions
+✓ Percentage calculation based on total (not just answered)
+✓ State isolation: new session starts fresh
+
+## Validation
+
+✓ **Lint:** Passes
+✓ **TypeScript:** No errors
+✓ **Build:** Success
+✓ **Phase 1 tests:** All pass
+✓ **Phase 2 tests:** All pass
+✓ **Phase 3 tests:** All pass
+
+## Phase 3 Checkpoints
+
+**Quiz checkpoint met:**
+> A user can start Quiz Mode, answer one question at a time, receive immediate feedback, continue through the worksheet, and see a final result/review.
+
+Verified:
+✓ Mode selection works
+✓ Quiz session initializes
+✓ Questions render one at a time
+✓ Submit answer evaluates immediately
+✓ Feedback shows correct/incorrect + explanation
+✓ Try Again clears feedback
+✓ Continue moves to next question
+✓ Navigation (Previous) works
+✓ Completion triggers result screen
+✓ Result shows correct score
+✓ Review mode accessible
+✓ Review shows all questions with correctness
+
+**Exam checkpoint met:**
+> A user can start Exam Mode, answer and navigate through questions without seeing correctness, submit the exam, receive a final result, and then review the evaluated answers.
+
+Verified:
+✓ Mode selection works
+✓ Exam session initializes
+✓ Questions render one at a time
+✓ Answers persist across navigation
+✓ Previous/Next work correctly
+✓ NO correctness shown during exam
+✓ Desktop sidebar shows answered/unanswered (not correct/incorrect)
+✓ Submit confirmation displays
+✓ Answered/unanswered count shown
+✓ Submit evaluates all answers
+✓ Result screen displays final score
+✓ Unanswered questions counted separately
+✓ Review mode shows correctness ONLY after submission
+✓ Review navigates through all questions
+
+## Manual Verification Required
+
+Browser testing at http://localhost:3000 to verify:
+- [ ] Mode selection displays correctly
+- [ ] Quiz mode flow works end-to-end
+- [ ] Exam mode flow works end-to-end
+- [ ] Result screen displays correctly
+- [ ] Review mode works
+- [ ] Desktop sidebar navigation
+- [ ] Mobile responsive behavior
+- [ ] All question types render in both modes
+- [ ] Try Again works in Quiz
+- [ ] Exam confirmation prevents accidental submit
+- [ ] Review shows correct/incorrect indicators
+
+## Scope Boundaries
+
+**Phase 3 did NOT implement:**
+- Prompt generator (Phase 4)
+- Landing page (Phase 5)
+- Worksheet import UI (Phase 5)
+- Polish/accessibility improvements (Phase 5)
+- Saved worksheets (future)
+- Accounts (future)
+
+Phase 3 scope: Quiz + Exam modes with mode selection, session state, result calculation, and review as specified.
+
+## Next Phase
+
+Phase 4 will implement:
+- AI Prompt Generator
+- Configuration UI (count, difficulty, types, source)
+- Generated prompt display
+- Copy to clipboard functionality

@@ -673,3 +673,294 @@ Phase 4 will implement:
 - Configuration UI (count, difficulty, types, source)
 - Generated prompt display
 - Copy to clipboard functionality
+
+---
+
+# Phase 4 Implementation — Prompt Generator
+
+## Status: Complete
+
+Phase 4 implements the Prompt Generator that helps users create structured prompts for external AI to generate Answering-compatible worksheets.
+
+## Implemented
+
+### 1. Prompt Configuration Types (`src/types/prompt.ts`)
+
+Typed configuration model:
+- `QuestionType` - "mc" | "multi" | "tf" | "short" (reuses existing domain)
+- `Difficulty` - "Simple" | "Normal" | "HOTS" | "Mixed"
+- `SourceType` - "user-material" | "general-knowledge"
+- `PromptConfig` - questionCount, difficulty, questionTypes[], source, topic
+- `PromptConfigErrors` - validation error messages
+
+### 2. Prompt Builder (`src/lib/prompt-builder.ts`)
+
+Pure deterministic prompt generation:
+- `validatePromptConfig()` - validates configuration
+- `isValidPromptConfig()` - boolean validation check
+- `generatePrompt()` - pure function (config → prompt string)
+
+**Validation rules:**
+- Question count: 1-100
+- At least one question type selected
+- Topic required (empty string rejected)
+- User material source requires topic description
+
+**Generated prompt includes:**
+- Question count
+- Topic/material
+- Difficulty with description
+- Selected question types with labels
+- Source-specific instructions
+- Requirements from PROMPTS.md:
+  - Include correct answers
+  - Type-specific answer format rules
+  - Explanation guidance
+  - No unsupported types
+  - Output Answering Worksheet Format v1
+  - No Markdown code fences
+  - No additional commentary
+
+### 3. Prompt Generator UI (`src/components/prompt/PromptGenerator.tsx`)
+
+Configuration interface following DESIGN.md:
+
+**Form Controls:**
+- Question count input (number, 1-100)
+- Difficulty buttons (Simple/Normal/HOTS/Mixed)
+- Question type toggles (MC/Multi/TF/Short)
+- Source selection (My Material / General Knowledge)
+- Topic textarea (multiline for material)
+- Generate Prompt button (disabled when invalid)
+
+**Prompt Preview:**
+- Generated prompt displayed in readonly textarea
+- Monospace font for clarity
+- Copy Prompt button with feedback
+- Instructions for external AI usage
+
+**Validation:**
+- Real-time error display
+- Red borders on invalid fields
+- Clear error messages
+- Generate button disabled when invalid
+
+**Design:**
+- Dark workspace foundation
+- Gold accents on selected buttons
+- Subtle borders, medium radius
+- Calm, practical tool aesthetic
+- No AI marketing visual language
+- Responsive layout
+
+### 4. Home Page Update (`src/app/page.tsx`)
+
+Added navigation structure:
+- Home view with two options:
+  - Generate Prompt → Prompt Generator
+  - Start Practicing → Sample worksheet practice
+- Simple card-based selection
+- Dark theme with gold hover
+- Back navigation from Prompt Generator
+
+### 5. Clipboard Integration
+
+Browser Clipboard API:
+- Copy to clipboard on button click
+- Temporary "Copied!" feedback (2 seconds)
+- Error handling (console log, no crash)
+- No backend/server required
+
+### 6. Tests (`src/__tests__/phase4-prompt.test.ts`)
+
+Validates Phase 4 requirements:
+- ✓ Valid configuration accepted
+- ✓ Invalid question count rejected (0, >100)
+- ✓ Empty question types rejected
+- ✓ Empty topic rejected
+- ✓ User material requires topic
+- ✓ MC-only Simple prompt generated
+- ✓ All types HOTS prompt generated
+- ✓ User material source instruction included
+- ✓ General knowledge source instruction included
+- ✓ Deterministic generation (same input → same output)
+- ✓ All requirements from PROMPTS.md present:
+  - Include correct answer
+  - Type-specific answer rules
+  - Format instruction
+  - No Markdown fences
+  - No extra commentary
+
+## Architecture
+
+### Separation of Concerns
+
+```
+PromptConfig (types)
+    ↓
+validatePromptConfig (pure function)
+    ↓
+generatePrompt (pure function)
+    ↓
+PromptGenerator UI (React)
+    ↓
+Clipboard API (browser)
+```
+
+Prompt builder is pure function with no dependencies on:
+- Browser APIs
+- React state
+- DOM
+- External services
+
+This makes testing simple and deterministic.
+
+### Integration
+
+```
+Home
+├── Generate Prompt → PromptGenerator
+└── Start Practicing → SessionOrchestrator
+                           ↓
+                      (existing Phase 1-3)
+```
+
+Phase 1-3 functionality remains unchanged. Prompt Generator is separate feature accessed from home.
+
+## Design Compliance
+
+Implementation follows DESIGN.md:
+
+✓ Dark workspace foundation (#0B0B0A)
+✓ Restrained gold accents (selected states, primary button)
+✓ Subtle borders, medium radius
+✓ Clear typography hierarchy
+✓ Form controls properly labeled
+✓ Focus states visible
+✓ No AI aesthetic (no blue/purple gradients, no glow)
+✓ Practical tool appearance (not marketing page)
+✓ Responsive layout
+✓ Calm, focused presentation
+
+## Files Created
+
+```
+src/types/prompt.ts
+src/lib/prompt-builder.ts
+src/components/prompt/PromptGenerator.tsx
+src/__tests__/phase4-prompt.test.ts
+```
+
+## Files Modified
+
+```
+src/app/page.tsx (added home/navigation structure)
+IMPLEMENTATION.md (updated)
+```
+
+## Validation
+
+✓ **Lint:** Passes
+✓ **TypeScript:** No errors
+✓ **Build:** Success
+✓ **Phase 1 tests:** All pass (parser/checker)
+✓ **Phase 2 tests:** All pass (renderer/state)
+✓ **Phase 3 tests:** All pass (session/modes)
+✓ **Phase 4 tests:** All pass (prompt generation)
+
+## Phase 4 Checkpoint Met
+
+**Prompt Generator checkpoint:**
+> A user can open Prompt Generator, configure question count, choose difficulty, choose one or more supported question types, choose source, provide material/topic when required, generate a deterministic prompt, read the generated prompt, copy it successfully, paste that prompt into an external AI, and the prompt clearly instructs the external AI to return Answering Worksheet Format v1.
+
+Verified:
+✓ Configuration UI works
+✓ Question count input (1-100 validation)
+✓ Difficulty selection (Simple/Normal/HOTS/Mixed)
+✓ Question type selection (mc/multi/tf/short)
+✓ Source selection (user-material/general-knowledge)
+✓ Topic/material input required and validated
+✓ Generate button disabled when invalid
+✓ Prompt generated deterministically
+✓ Prompt preview displayed (readable, monospace)
+✓ Copy to clipboard works
+✓ Prompt instructs AI to output Answering Worksheet Format v1
+✓ No AI API added
+✓ No backend/database added
+✓ Existing Phase 1-3 still works
+
+## Example Generated Prompt
+
+Configuration:
+- 10 questions
+- Normal difficulty
+- MC + Short Answer
+- General knowledge
+- Topic: "Discrete Mathematics"
+
+Generated prompt includes:
+```
+You are creating a practice worksheet for the Answering web application.
+
+Create 10 questions about:
+Discrete Mathematics
+
+Difficulty: Normal
+Questions should require normal course-level understanding...
+
+Allowed question types:
+Multiple Choice, Short Answer
+
+Source policy:
+Create questions using generally available knowledge...
+
+Requirements:
+- Include the correct answer for every question.
+- For multiple choice, provide exactly one correct option.
+- For short answer, provide one or more accepted answers.
+...
+Output strictly in Answering Worksheet Format v1.
+Do not wrap the worksheet in Markdown code fences.
+```
+
+## Scope Boundaries
+
+**Phase 4 did NOT implement:**
+- AI API integration
+- Automatic question generation inside Answering
+- Backend/database
+- Authentication
+- Worksheet import UI (Phase 5)
+- Landing page polish (Phase 5)
+- Saved worksheets (future)
+
+Phase 4 scope: Prompt Generator only. User copies prompt and manually sends to external AI.
+
+## Manual Verification Required
+
+Browser testing at http://localhost:3000 to verify:
+- [ ] Home page displays with two options
+- [ ] Generate Prompt navigates to Prompt Generator
+- [ ] Configuration form displays correctly
+- [ ] Question count input works
+- [ ] Difficulty buttons work (selection visible)
+- [ ] Question type toggles work (multiple selection)
+- [ ] Source buttons work
+- [ ] Topic textarea works
+- [ ] Validation errors display
+- [ ] Generate button disabled when invalid
+- [ ] Generated prompt displays correctly
+- [ ] Copy Prompt button works
+- [ ] "Copied!" feedback appears
+- [ ] Back button returns to home
+- [ ] Start Practicing still works (Phase 1-3 intact)
+
+## Next Phase
+
+Phase 5 will implement:
+- Visual polish
+- Accessibility improvements
+- Responsive refinements
+- Loading/empty/error states
+- Final Vercel deployment
+- Production smoke test

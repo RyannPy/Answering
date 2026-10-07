@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Answering
 
-## Getting Started
+Answering is a small static web app for practicing questions through interactive worksheets.
 
-First, run the development server:
+The core idea is simple:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+> AI or the user creates a worksheet in Answering's structured format. Answering renders it as an interactive worksheet and checks answers locally in the browser.
+
+Answering does **not** need an AI API, database, authentication, or backend for the MVP.
+
+## Core Flow
+
+```text
+Material / existing questions
+          ↓
+      External AI
+          ↓
+  Answering Worksheet Format
+          ↓
+       Answering
+          ↓
+   Interactive practice
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Modes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Quiz Mode
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- One question per card.
+- User submits an answer.
+- Immediate correctness feedback.
+- Correct answer and explanation may be shown immediately.
+- Intended for learning and practice.
 
-## Learn More
+### Exam Mode
 
-To learn more about Next.js, take a look at the following resources:
+- One question per card.
+- User can move between questions.
+- Answers are not revealed after each submission.
+- Final evaluation happens when the exam is submitted.
+- Intended for exam simulation.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Supported Question Types
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Multiple Choice
+- Multiple Select
+- True / False
+- Short Answer
 
-## Deploy on Vercel
+Essay evaluation is a future feature requiring AI/API integration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The project uses Next.js and TypeScript and is intended for static-compatible deployment on Vercel.
+
+See `docs/PRODUCT.md`, `docs/FORMAT.md`, `docs/PROMPTS.md`, and `docs/ROADMAP.md` for the product contract.

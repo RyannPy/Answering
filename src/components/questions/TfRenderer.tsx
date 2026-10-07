@@ -1,0 +1,64 @@
+"use client";
+
+import type { TfQuestion } from "@/types/worksheet";
+
+type TfRendererProps = {
+  question: TfQuestion;
+  value?: boolean;
+  onChange: (value: boolean) => void;
+  disabled?: boolean;
+  showAnswer?: boolean;
+};
+
+export function TfRenderer({
+  question,
+  value,
+  onChange,
+  disabled = false,
+  showAnswer = false,
+}: TfRendererProps) {
+  const options = [
+    { label: "True", value: true },
+    { label: "False", value: false },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <div className="text-lg text-[var(--text-primary)] font-medium">
+        {question.question}
+      </div>
+
+      <div className="flex gap-4">
+        {options.map((option) => {
+          const isSelected = value === option.value;
+          const isCorrect = showAnswer && question.answer === option.value;
+
+          return (
+            <button
+              key={option.label}
+              onClick={() => onChange(option.value)}
+              disabled={disabled}
+              className={`
+                flex-1 p-4 rounded-lg border transition-all font-medium
+                ${
+                  isSelected
+                    ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/5 text-[var(--gold-bright)]"
+                    : "border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+                }
+                ${disabled ? "cursor-not-allowed opacity-60" : ""}
+                ${isCorrect && showAnswer ? "ring-2 ring-[var(--gold-bright)]" : ""}
+              `}
+            >
+              {option.label}
+              {isCorrect && showAnswer && (
+                <span className="block text-sm text-[var(--gold-bright)] mt-1">
+                  ✓ Correct
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

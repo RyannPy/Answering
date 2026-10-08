@@ -57,34 +57,42 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
   const unansweredCount = session.worksheet.questions.length - answeredCount;
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-[var(--text-primary)]">
+      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)] flex-shrink-0">
+        <div className="container mx-auto py-3 flex items-center justify-between">
+          <div className="text-lg font-semibold text-[var(--text-primary)]">
             Answering
           </div>
-          <div className="text-[var(--text-secondary)]">
-            Question {session.currentQuestionIndex + 1} / {session.worksheet.questions.length}
+          <div className="flex-1">
+            <div className="text-sm text-[var(--text-muted)] mx-auto">
+              Question {session.currentQuestionIndex + 1} of {session.worksheet.questions.length}
+            </div>
           </div>
+          <button
+            onClick={() => {/* Back logic would go here */}}
+            className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-200 text-sm"
+          >
+            Back
+          </button>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="lg:flex lg:gap-8">
+      <main className="flex-1 container mx-auto py-6 overflow-y-auto">
+        <div className="lg:flex lg:gap-4">
           {/* Main content */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {/* Worksheet title */}
-            <div className="mb-6">
-              <div className="text-sm text-[var(--text-muted)] mb-1">Exam Mode</div>
-              <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+            <div className="mb-4">
+              <div className="text-xs text-[var(--text-muted)] mb-1">Exam Mode</div>
+              <h1 className="text-xl font-semibold text-[var(--text-primary)]">
                 {session.worksheet.title}
               </h1>
             </div>
 
             {/* Question card */}
-            <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-6 mb-6">
-              <div className="text-sm text-[var(--text-muted)] mb-4">
+            <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4 mb-4">
+              <div className="text-xs text-[var(--text-muted)] mb-2">
                 Question {session.currentQuestionIndex + 1}
               </div>
 
@@ -98,12 +106,12 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4">
               <button
                 onClick={handlePrevious}
                 disabled={session.currentQuestionIndex === 0}
                 className={`
-                  px-6 py-3 rounded-lg border transition-colors
+                  px-3 py-1.5 rounded-md border transition-colors duration-200
                   ${
                     session.currentQuestionIndex === 0
                       ? "border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
@@ -111,7 +119,7 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
                   }
                 `}
               >
-                ← Previous
+                Previous
               </button>
 
               <button
@@ -120,7 +128,7 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
                   session.currentQuestionIndex === session.worksheet.questions.length - 1
                 }
                 className={`
-                  px-6 py-3 rounded-lg border transition-colors
+                  px-3 py-1.5 rounded-md border transition-colors duration-200
                   ${
                     session.currentQuestionIndex === session.worksheet.questions.length - 1
                       ? "border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
@@ -128,52 +136,51 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
                   }
                 `}
               >
-                Next →
+                Next
               </button>
             </div>
 
             {/* Submit exam section */}
             {!showSubmitConfirm ? (
-              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-6">
-                <div className="text-lg font-medium text-[var(--text-primary)] mb-2">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
+                <div className="text-base font-medium text-[var(--text-primary)] mb-2">
                   Ready to submit?
                 </div>
-                <div className="text-[var(--text-secondary)] mb-4">
+                <div className="text-sm text-[var(--text-secondary)] mb-3">
                   {answeredCount} / {session.worksheet.questions.length} questions answered
                   {unansweredCount > 0 && (
-                    <span className="text-[var(--warning)]">
-                      {" "}
+                    <span className="text-[var(--warning)] ml-1">
                       • {unansweredCount} unanswered
                     </span>
                   )}
                 </div>
                 <button
                   onClick={() => setShowSubmitConfirm(true)}
-                  className="px-6 py-3 rounded-lg bg-[var(--gold-primary)] text-[var(--bg-primary)] font-medium hover:bg-[var(--gold-bright)] transition-colors"
+                  className="w-full px-4 py-2 rounded-lg font-medium bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)] transition-colors duration-200"
                 >
                   Submit Exam
                 </button>
               </div>
             ) : (
-              <div className="bg-[var(--bg-elevated)] border border-[var(--warning)]/30 rounded-lg p-6">
-                <div className="text-lg font-medium text-[var(--text-primary)] mb-2">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--warning)]/30 rounded-lg p-4">
+                <div className="text-base font-medium text-[var(--text-primary)] mb-2">
                   Confirm submission
                 </div>
-                <div className="text-[var(--text-secondary)] mb-4">
+                <div className="text-sm text-[var(--text-secondary)] mb-3">
                   {answeredCount} answered • {unansweredCount} unanswered
                   <br />
                   You cannot change answers after submitting.
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-2">
                   <button
                     onClick={() => setShowSubmitConfirm(false)}
-                    className="px-6 py-3 rounded-lg border border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors"
+                    className="flex-1 px-4 py-2 rounded-md border border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors duration-200"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSubmitExam}
-                    className="px-6 py-3 rounded-lg bg-[var(--gold-primary)] text-[var(--bg-primary)] font-medium hover:bg-[var(--gold-bright)] transition-colors"
+                    className="flex-1 px-4 py-2 rounded-md font-medium bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)] transition-colors duration-200"
                   >
                     Confirm Submit
                   </button>
@@ -184,9 +191,9 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
 
           {/* Navigation sidebar - Desktop */}
           <div className="hidden lg:block w-48 shrink-0">
-            <div className="sticky top-8">
-              <div className="text-sm text-[var(--text-secondary)] mb-3">Questions</div>
-              <div className="grid grid-cols-4 gap-2">
+            <div className="sticky top-4">
+              <div className="text-xs text-[var(--text-secondary)] mb-2">Questions</div>
+              <div className="grid grid-cols-4 gap-1">
                 {session.worksheet.questions.map((q, idx) => {
                   const isCurrent = idx === session.currentQuestionIndex;
                   const isAnswered = !!session.answers[q.id];
@@ -196,7 +203,7 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
                       key={q.id}
                       onClick={() => handleNavigate(idx)}
                       className={`
-                        aspect-square rounded-lg border text-sm font-medium transition-colors
+                        aspect-square rounded-md border text-xs font-medium transition-colors duration-200
                         ${
                           isCurrent
                             ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
@@ -216,8 +223,8 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
         </div>
 
         {/* Mobile navigation */}
-        <div className="lg:hidden mt-6">
-          <div className="flex gap-1 justify-center mb-4">
+        <div className="lg:hidden mt-4">
+          <div className="flex gap-1 justify-center mb-2">
             {session.worksheet.questions.map((q, idx) => {
               const isCurrent = idx === session.currentQuestionIndex;
               const isAnswered = !!session.answers[q.id];
@@ -239,7 +246,14 @@ export function ExamMode({ session: initialSession, onSubmit }: ExamModeProps) {
             })}
           </div>
         </div>
-      </div>
+      </main>
+
+      <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-deep)] flex-shrink-0">
+        <div className="container mx-auto py-2 flex items-center justify-between text-sm">
+          <span className="text-[var(--text-muted)]">© 2026 Answering</span>
+          <span className="text-[var(--text-muted)]">Version 0.1.0</span>
+        </div>
+      </footer>
     </div>
   );
 }

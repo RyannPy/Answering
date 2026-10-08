@@ -9,8 +9,8 @@ type ModeSelectionProps = {
 
 export function ModeSelection({ worksheet, onSelectMode }: ModeSelectionProps) {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6">
-      <div className="max-w-4xl w-full">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
+      <div className="container mx-auto px-4 md:px-6">
         {/* Worksheet info */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-semibold text-[var(--text-primary)] mb-3">

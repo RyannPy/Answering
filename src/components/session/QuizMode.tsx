@@ -112,7 +112,7 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* Header */}
       <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto py-4 flex items-center justify-between">
           <div className="text-xl font-semibold text-[var(--text-primary)]">
             Answering
           </div>
@@ -122,7 +122,7 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <main className="container mx-auto py-8">
         {/* Worksheet title */}
         <div className="mb-6">
           <div className="text-sm text-[var(--text-muted)] mb-1">Quiz Mode</div>
@@ -192,7 +192,7 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
             </button>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

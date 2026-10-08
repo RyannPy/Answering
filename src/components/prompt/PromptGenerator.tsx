@@ -48,17 +48,17 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-[var(--text-primary)]">
+      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)] flex-shrink-0">
+        <div className="container mx-auto py-3 flex items-center justify-between">
+          <div className="text-lg font-semibold text-[var(--text-primary)]">
             Answering
           </div>
           {onBack && (
             <button
               onClick={onBack}
-              className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-200 text-sm"
             >
               Back
             </button>
@@ -66,26 +66,26 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <main className="flex-1 container mx-auto py-6 overflow-y-auto">
         {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-[var(--text-primary)] mb-2">
+        <div className="mb-4">
+          <h1 className="text-xl font-semibold text-[var(--text-primary)] mb-2">
             Prompt Generator
           </h1>
-          <p className="text-[var(--text-secondary)]">
+          <p className="text-sm text-[var(--text-secondary)]">
             Configure your worksheet requirements and generate a prompt for external AI.
           </p>
         </div>
 
         {/* Configuration form */}
-        <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-6">
+        <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-3 mb-3">
+          <h2 className="text-base font-semibold text-[var(--text-primary)] mb-2">
             Configure
           </h2>
 
           {/* Question count */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+          <div className="mb-2">
+            <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
               Question Count
             </label>
             <input
@@ -97,28 +97,28 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                 setConfig({ ...config, questionCount: parseInt(e.target.value) || 1 })
               }
               className={`
-                w-full max-w-xs p-3 rounded-lg border bg-[var(--bg-deep)] text-[var(--text-primary)]
+                w-full max-w-xs p-1.5 rounded-md border bg-[var(--bg-deep)] text-[var(--text-primary)]
                 focus:border-[var(--gold-primary)] focus:outline-none
                 ${errors.questionCount ? "border-[var(--error)]" : "border-[var(--border-subtle)]"}
               `}
             />
             {errors.questionCount && (
-              <div className="text-sm text-[var(--error)] mt-1">{errors.questionCount}</div>
+              <div className="text-xs text-[var(--error)] mt-0.5">{errors.questionCount}</div>
             )}
           </div>
 
           {/* Difficulty */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+          <div className="mb-2">
+            <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
               Difficulty
             </label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-1">
               {(["Simple", "Normal", "HOTS", "Mixed"] as Difficulty[]).map((diff) => (
                 <button
                   key={diff}
                   onClick={() => setConfig({ ...config, difficulty: diff })}
                   className={`
-                    px-6 py-3 rounded-lg border font-medium transition-colors
+                    px-3 py-1.5 rounded-md border font-medium transition-colors duration-200
                     ${
                       config.difficulty === diff
                         ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
@@ -133,11 +133,11 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
           </div>
 
           {/* Question types */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+          <div className="mb-2">
+            <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
               Question Types
             </label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-1">
               {[
                 { type: "mc" as QuestionType, label: "Multiple Choice" },
                 { type: "multi" as QuestionType, label: "Multiple Select" },
@@ -148,7 +148,7 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   key={type}
                   onClick={() => toggleQuestionType(type)}
                   className={`
-                    px-6 py-3 rounded-lg border font-medium transition-colors
+                    px-3 py-1.5 rounded-md border font-medium transition-colors duration-200
                     ${
                       config.questionTypes.includes(type)
                         ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
@@ -161,16 +161,16 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
               ))}
             </div>
             {errors.questionTypes && (
-              <div className="text-sm text-[var(--error)] mt-2">{errors.questionTypes}</div>
+              <div className="text-xs text-[var(--error)] mt-0.5">{errors.questionTypes}</div>
             )}
           </div>
 
           {/* Source */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+          <div className="mb-2">
+            <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
               Source
             </label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-1">
               {[
                 { type: "user-material" as SourceType, label: "My Material" },
                 { type: "general-knowledge" as SourceType, label: "General Knowledge" },
@@ -179,7 +179,7 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   key={type}
                   onClick={() => setConfig({ ...config, source: type })}
                   className={`
-                    px-6 py-3 rounded-lg border font-medium transition-colors
+                    px-3 py-1.5 rounded-md border font-medium transition-colors duration-200
                     ${
                       config.source === type
                         ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
@@ -194,8 +194,8 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
           </div>
 
           {/* Topic / Material */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
+          <div className="mb-2">
+            <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
               {config.source === "user-material"
                 ? "Material / Topic Description"
                 : "Topic"}
@@ -208,16 +208,16 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   ? "Describe your material or paste the content here..."
                   : "E.g., Discrete Mathematics, Pigeonhole Principle"
               }
-              rows={4}
+              rows={3}
               className={`
-                w-full p-3 rounded-lg border bg-[var(--bg-deep)] text-[var(--text-primary)]
+                w-full p-1.5 rounded-md border bg-[var(--bg-deep)] text-[var(--text-primary)]
                 placeholder:text-[var(--text-muted)]
                 focus:border-[var(--gold-primary)] focus:outline-none
                 ${errors.topic ? "border-[var(--error)]" : "border-[var(--border-subtle)]"}
               `}
             />
             {errors.topic && (
-              <div className="text-sm text-[var(--error)] mt-1">{errors.topic}</div>
+              <div className="text-xs text-[var(--error)] mt-0.5">{errors.topic}</div>
             )}
           </div>
 
@@ -226,11 +226,10 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
             onClick={handleGenerate}
             disabled={hasErrors}
             className={`
-              w-full px-6 py-3 rounded-lg font-medium transition-colors
-              ${
-                hasErrors
-                  ? "bg-[var(--bg-secondary)] text-[var(--text-muted)] cursor-not-allowed"
-                  : "bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)]"
+              w-full px-3 py-1.5 rounded-md font-medium transition-colors duration-200
+              ${hasErrors
+                ? "bg-[var(--bg-secondary)] text-[var(--text-muted)] cursor-not-allowed"
+                : "bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)]"
               }
             `}
           >
@@ -240,14 +239,14 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
 
         {/* Generated prompt */}
         {generatedPrompt && (
-          <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-[var(--text-primary)]">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-3 mb-3">
+            <div className="flex items-center justify-between mb-2">
+              <h1 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
                 Generated Prompt
-              </h2>
+              </h1>
               <button
                 onClick={handleCopy}
-                className="px-4 py-2 rounded-lg bg-[var(--gold-primary)] text-[var(--bg-primary)] font-medium hover:bg-[var(--gold-bright)] transition-colors"
+                className="px-2 py-1 rounded-md bg-[var(--gold-primary)] text-[var(--bg-primary)] font-medium hover:bg-[var(--gold-bright)] transition-colors duration-200 text-sm"
               >
                 {copyFeedback ? "Copied!" : "Copy Prompt"}
               </button>
@@ -256,17 +255,24 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
             <textarea
               readOnly
               value={generatedPrompt}
-              rows={20}
-              className="w-full p-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-deep)] text-[var(--text-primary)] font-mono text-sm"
+              rows={8}
+              className="w-full p-1.5 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-deep)] text-[var(--text-primary)] font-mono text-xs"
             />
 
-            <div className="mt-4 text-sm text-[var(--text-secondary)]">
+            <div className="mt-1 text-xs text-[var(--text-secondary)]">
               Copy this prompt and paste it into an external AI (e.g., ChatGPT, Claude) to
               generate your worksheet.
             </div>
           </div>
         )}
-      </div>
+      </main>
+
+      <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-deep)] flex-shrink-0">
+        <div className="container mx-auto py-2 flex items-center justify-between text-xs">
+          <span className="text-[var(--text-muted)]">© 2026 Answering</span>
+          <span className="text-[var(--text-muted)]">Version 0.1.0</span>
+        </div>
+      </footer>
     </div>
   );
 }

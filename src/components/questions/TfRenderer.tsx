@@ -23,12 +23,12 @@ export function TfRenderer({
   ];
 
   return (
-    <div className="space-y-4">
-      <div className="text-lg text-[var(--text-primary)] font-medium">
+    <div className="space-y-3">
+      <div className="text-base text-[var(--text-primary)] font-medium mb-1">
         {question.question}
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         {options.map((option) => {
           const isSelected = value === option.value;
           const isCorrect = showAnswer && question.answer === option.value;
@@ -39,19 +39,19 @@ export function TfRenderer({
               onClick={() => onChange(option.value)}
               disabled={disabled}
               className={`
-                flex-1 p-4 rounded-lg border transition-all font-medium
+                flex-1 p-2 rounded-md border transition-colors duration-200 font-medium
                 ${
                   isSelected
-                    ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/5 text-[var(--gold-bright)]"
+                    ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
                     : "border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                 }
                 ${disabled ? "cursor-not-allowed opacity-60" : ""}
-                ${isCorrect && showAnswer ? "ring-2 ring-[var(--gold-bright)]" : ""}
+                ${isCorrect && showAnswer ? "ring-1 ring-[var(--gold-bright)]" : ""}
               `}
             >
               {option.label}
               {isCorrect && showAnswer && (
-                <span className="block text-sm text-[var(--gold-bright)] mt-1">
+                <span className="block text-xs text-[var(--gold-bright)] mt-0.5">
                   ✓ Correct
                 </span>
               )}

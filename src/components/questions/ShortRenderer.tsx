@@ -18,8 +18,8 @@ export function ShortRenderer({
   showAnswer = false,
 }: ShortRendererProps) {
   return (
-    <div className="space-y-4">
-      <div className="text-lg text-[var(--text-primary)] font-medium">
+    <div className="space-y-3">
+      <div className="text-base text-[var(--text-primary)] font-medium mb-1">
         {question.question}
       </div>
 
@@ -30,7 +30,7 @@ export function ShortRenderer({
         disabled={disabled}
         placeholder="Type your answer..."
         className={`
-          w-full p-4 rounded-lg border bg-[var(--bg-elevated)] text-[var(--text-primary)]
+          w-full p-2 rounded-md border bg-[var(--bg-elevated)] text-[var(--text-primary)]
           placeholder:text-[var(--text-muted)]
           focus:border-[var(--gold-primary)] focus:outline-none
           ${disabled ? "cursor-not-allowed opacity-60" : "border-[var(--border-subtle)]"}
@@ -38,11 +38,11 @@ export function ShortRenderer({
       />
 
       {showAnswer && (
-        <div className="mt-3 p-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
-          <div className="text-sm text-[var(--text-secondary)] mb-1">
+        <div className="mt-2 p-2 rounded-md border bg-[var(--bg-elevated)] border-[var(--border-subtle)]">
+          <div className="text-xs text-[var(--text-secondary)] mb-1">
             Accepted answers:
           </div>
-          <div className="text-[var(--text-primary)]">
+          <div className="text-[var(--text-primary)] text-xs">
             {question.answer.join(", ")}
           </div>
         </div>

@@ -228,3 +228,80 @@ The first implementation is `Answering Worksheet Format v1`.
 If the format must make a breaking change, update the format version explicitly rather than silently changing parser behavior.
 
 The application does not need a complicated version negotiation system for MVP.
+
+## 11. Mathematical Notation
+
+Worksheet content supports LaTeX mathematical expressions for rendering equations and formulas.
+
+### Inline Math
+
+Use `\( ... \)` for inline mathematical expressions:
+
+```text
+question: What is the value of \(x\) when \(x^2 = 4\)?
+```
+
+### Display Math
+
+Use `\[ ... \]` for display (block) mathematical expressions:
+
+```text
+question: Solve the quadratic equation: \[\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]
+```
+
+### Supported LaTeX Features
+
+Mathematical notation is rendered using KaTeX and supports:
+
+- Square roots: `\sqrt{x^2 + 4}`
+- Fractions: `\frac{a}{b}`
+- Exponents: `x^2`, `x^{n+1}`
+- Subscripts: `x_i`, `a_{n-1}`
+- Greek letters: `\alpha`, `\beta`, `\gamma`, `\Delta`, `\Sigma`
+- Inequalities: `\leq`, `\geq`, `\neq`
+- Absolute values: `|x|`
+- Summations: `\sum_{i=1}^{n}`
+- Integrals: `\int_{a}^{b}`
+- Piecewise functions: `\begin{cases} ... \end{cases}`
+- Interval notation: `[0, \infty)`, `(-\infty, 5]`
+- Matrices: `\begin{pmatrix} ... \end{pmatrix}`
+- Set notation: `\{x \mid x > 0\}`
+- Logical operators: `\land`, `\lor`, `\neg`, `\implies`, `\iff`
+
+### Examples
+
+Multiple Choice with math:
+
+```text
+@question
+ type: mc
+ question: Find \(f(x)\) when \(f(x) = \sqrt{x^2 + 4}\) and \(x = 3\).
+ options:
+  - \(\sqrt{13}\)
+  - \(\sqrt{10}\)
+  - 5
+  - 7
+ answer: 1
+ explanation: Substitute \(x = 3\) into \(f(x) = \sqrt{x^2 + 4}\) to get \(f(3) = \sqrt{9 + 4} = \sqrt{13}\).
+@end
+```
+
+Display equation in question:
+
+```text
+@question
+ type: short
+ question: What is the derivative of \[\frac{d}{dx}(x^3 + 2x^2 - 5x + 1)\]
+ answer:
+  - \(3x^2 + 4x - 5\)
+  - 3x^2 + 4x - 5
+ explanation: Apply the power rule to each term: \(\frac{d}{dx}(x^n) = nx^{n-1}\).
+@end
+```
+
+### Guidelines
+
+- Mathematical expressions are optional. Use LaTeX notation only when displaying mathematical content.
+- Plain text worksheets without LaTeX notation remain fully compatible.
+- Malformed LaTeX will fall back to displaying the raw notation rather than crashing the application.
+- Short answer checking remains deterministic and case-insensitive text comparison. LaTeX rendering does not affect answer evaluation.

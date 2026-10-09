@@ -118,6 +118,15 @@ Answering Worksheet Format v1 Specification:
           - chilly
        @end
 - Explanation is optional and added with \`explanation: ...\` inside a question block.
+- Mathematical notation:
+  * Use LaTeX for mathematical expressions.
+  * Inline math: \\( ... \\) for expressions within text, e.g., \\(x^2 + 4\\), \\(\\frac{a}{b}\\), \\(\\sqrt{x}\\)
+  * Display math: \\[ ... \\] for standalone equations, e.g., \\[\\sum_{i=1}^{n} i^2\\]
+  * Use LaTeX only for mathematical content, not ordinary prose.
+  * Examples:
+    - question: What is \\(f(x)\\) when \\(f(x) = \\sqrt{x^2 + 4}\\) and \\(x = 3\\)?
+    - option: \\(\\sqrt{13}\\)
+    - explanation: Substitute \\(x = 3\\) to get \\(f(3) = \\sqrt{9 + 4} = \\sqrt{13}\\).
 - Syntax rules:
   * @worksheet appears once at the start.
   * title is required after @worksheet.

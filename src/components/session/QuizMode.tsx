@@ -111,28 +111,34 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
+      <header className="border-b border-[var(--border-subtle)] glass-strong backdrop-blur-xl sticky top-0 z-50">
         <div className="container py-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-[var(--text-primary)]">
+          <div className="text-xl font-semibold text-gradient-gold">
             Answering
           </div>
-          <div className="text-supporting">
-            Question {session.currentQuestionIndex + 1} / {session.worksheet.questions.length}
+          <div className="text-supporting flex items-center gap-2">
+            <span className="hidden sm:inline">Question</span>
+            <span className="font-semibold text-[var(--text-primary)]">{session.currentQuestionIndex + 1}</span>
+            <span className="text-[var(--text-tertiary)]">/</span>
+            <span>{session.worksheet.questions.length}</span>
           </div>
         </div>
       </header>
 
       <main className="flex-1 container py-12">
         {/* Worksheet title */}
-        <div className="mb-10">
-          <div className="text-metadata mb-2">Quiz Mode</div>
+        <div className="mb-10 animate-fade-in">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-block w-2 h-2 bg-[var(--gold-500)] rounded-full animate-pulse"></span>
+            <div className="text-metadata">Quiz Mode</div>
+          </div>
           <h1 className="heading-section">
             {session.worksheet.title}
           </h1>
         </div>
 
         {/* Question card */}
-        <div className="max-w-3xl mb-8">
+        <div className="max-w-3xl mb-8 animate-slide-up">
           <div className="card p-8">
             <div className="text-question-number mb-4">
               Question {session.currentQuestionIndex + 1}

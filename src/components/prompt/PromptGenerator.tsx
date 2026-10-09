@@ -50,9 +50,9 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
+      <header className="border-b border-[var(--border-subtle)] glass-strong backdrop-blur-xl sticky top-0 z-50">
         <div className="container py-4 flex items-center justify-between">
-          <div className="text-xl font-semibold text-[var(--text-primary)]">
+          <div className="text-xl font-semibold text-gradient-gold">
             Answering
           </div>
           {onBack && (
@@ -60,7 +60,7 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
               onClick={onBack}
               className="btn btn-ghost btn-sm"
             >
-              Back
+              ← Back
             </button>
           )}
         </div>
@@ -68,7 +68,7 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
 
       <main className="flex-1 container py-12 overflow-y-auto max-w-4xl">
         {/* Title */}
-        <div className="mb-10">
+        <div className="mb-10 animate-fade-in">
           <h1 className="heading-section mb-3">
             Prompt Generator
           </h1>
@@ -78,7 +78,7 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
         </div>
 
         {/* Configuration form */}
-        <div className="card p-8 mb-8">
+        <div className="card p-8 mb-8 animate-slide-up">
           <h2 className="heading-subsection mb-6">
             Configure
           </h2>
@@ -114,10 +114,10 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   key={diff}
                   onClick={() => setConfig({ ...config, difficulty: diff })}
                   className={`
-                    px-6 py-3 rounded-md border font-medium transition-all duration-[var(--duration-fast)]
+                    px-6 py-3 rounded-md border font-medium transition-all duration-300 relative overflow-hidden
                     ${
                       config.difficulty === diff
-                        ? "border-[var(--gold-500)] border-2 bg-[var(--gold-900)] text-[var(--text-primary)]"
+                        ? "border-[var(--gold-500)] border-2 bg-gradient-to-br from-[var(--gold-900)] to-[var(--gold-800)] text-[var(--text-primary)] shadow-lg shadow-[var(--gold-500)]/20"
                         : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-elevated-hover)] hover:text-[var(--text-primary)]"
                     }
                   `}
@@ -144,10 +144,10 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   key={type}
                   onClick={() => toggleQuestionType(type)}
                   className={`
-                    px-6 py-3 rounded-md border font-medium text-left transition-all duration-[var(--duration-fast)]
+                    px-6 py-3 rounded-md border font-medium text-left transition-all duration-300
                     ${
                       config.questionTypes.includes(type)
-                        ? "border-[var(--gold-500)] border-2 bg-[var(--gold-900)] text-[var(--text-primary)]"
+                        ? "border-[var(--gold-500)] border-2 bg-gradient-to-br from-[var(--gold-900)] to-[var(--gold-800)] text-[var(--text-primary)] shadow-lg shadow-[var(--gold-500)]/20"
                         : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-elevated-hover)] hover:text-[var(--text-primary)]"
                     }
                   `}
@@ -175,10 +175,10 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
                   key={type}
                   onClick={() => setConfig({ ...config, source: type })}
                   className={`
-                    px-6 py-3 rounded-md border font-medium text-left transition-all duration-[var(--duration-fast)]
+                    px-6 py-3 rounded-md border font-medium text-left transition-all duration-300
                     ${
                       config.source === type
-                        ? "border-[var(--gold-500)] border-2 bg-[var(--gold-900)] text-[var(--text-primary)]"
+                        ? "border-[var(--gold-500)] border-2 bg-gradient-to-br from-[var(--gold-900)] to-[var(--gold-800)] text-[var(--text-primary)] shadow-lg shadow-[var(--gold-500)]/20"
                         : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-elevated-hover)] hover:text-[var(--text-primary)]"
                     }
                   `}
@@ -224,16 +224,16 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
 
         {/* Generated prompt */}
         {generatedPrompt && (
-          <div className="card p-8 animate-fade-in">
+          <div className="card p-8 animate-scale-in">
             <div className="flex items-center justify-between mb-6">
               <h2 className="heading-subsection">
                 Generated Prompt
               </h2>
               <button
                 onClick={handleCopy}
-                className="btn btn-primary"
+                className={`btn ${copyFeedback ? 'btn-secondary' : 'btn-primary'} transition-all`}
               >
-                {copyFeedback ? "Copied!" : "Copy Prompt"}
+                {copyFeedback ? "✓ Copied!" : "Copy Prompt"}
               </button>
             </div>
 
@@ -244,9 +244,11 @@ export function PromptGenerator({ onBack }: PromptGeneratorProps) {
               className="textarea font-mono text-sm"
             />
 
-            <div className="mt-4 text-supporting">
-              Copy this prompt and paste it into an external AI (e.g., ChatGPT, Claude) to
-              generate your worksheet.
+            <div className="mt-4 p-4 rounded-md bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+              <p className="text-supporting text-sm">
+                💡 Copy this prompt and paste it into an external AI (e.g., ChatGPT, Claude) to
+                generate your worksheet.
+              </p>
             </div>
           </div>
         )}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Test</title>
+    <style>
+        body { 
+            background: #0b0b0a; 
+            color: #f5f3eb; 
+            font-family: system-ui; 
+            padding: 20px;
+        }
+        .section { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border: 1px solid #3a3831; 
+            border-radius: 8px; 
+            background: #141412;
+        }
+        .title { color: #c9a227; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Test rendering semua komponen LaTeX</h1>
+    
+    <div class="section">
+        <div class="title">1. Question Text (harus render LaTeX)</div>
+        <div>Tentukan himpunan penyelesaian dari \(\frac{3x-2}{x-3} \geq 0\).</div>
+    </div>
+
+    <div class="section">
+        <div class="title">2. Answer Options (harus render LaTeX)</div>
+        <div>(-\infty, \frac{2}{3}] \cup (1, \infty)</div>
+        <div>(-\infty, 2/3] ∪ (1, \infty)</div>  
+        <div>(-\infty, 2/3] u (1, ∞)</div>
+    </div>
+
+    <div class="section">
+        <div class="title">3. Accepted Answers (harus render LaTeX per item)</div>
+        <div>(-\infty, \frac{2}{3}]</div>
+        <div>(-\infty, 2/3] ∪ (1, \infty)</div>
+        <div>(-\infty, 2/3] u (1, ∞)</div>
+        <div>(-∞, 2/3] ∪ (1, ∞)</div>
+        <div>(-\infty,2/3] \cup (1,\infty)</div>
+        <div>(-∞,2/3] u (1,∞)</div>
+    </div>
+
+    <div class="section">
+        <div class="title">4. Explanation (harus render LaTeX)</div>
+        <div>Titik pemisah adalah x = \frac{2}{3} (pembilang nol) dan x = 1 (penyebut nol)...</div>
+    </div>
+
+    <script>
+        console.log('HTML test file created. This shows what the LaTeX should look like when rendered.');
+        console.log('If you see raw LaTeX like \\frac{2}{3}, it means the MathContent component is not being used properly.');
+    </script>
+</body>
+</html>

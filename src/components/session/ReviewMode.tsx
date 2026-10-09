@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { SessionState } from "@/types/session";
 import { QuestionRenderer } from "@/components/questions/QuestionRenderer";
+import { MathContent } from "@/components/common/MathContent";
 
 type ReviewModeProps = {
   session: SessionState;
@@ -100,9 +101,7 @@ export function ReviewMode({ session, onExit }: ReviewModeProps) {
                   <div className="text-metadata mb-3">
                     Your answer:
                   </div>
-                  <div className="text-option">
-                    {formatUserAnswer(currentQuestion, currentResult.userAnswer)}
-                  </div>
+                  <UserAnswerDisplay question={currentQuestion} answer={currentResult.userAnswer} />
                 </div>
               )}
 
@@ -111,9 +110,7 @@ export function ReviewMode({ session, onExit }: ReviewModeProps) {
                   <div className="text-metadata mb-3">
                     Explanation:
                   </div>
-                  <div className="text-supporting leading-relaxed">
-                    {currentQuestion.explanation}
-                  </div>
+                  <MathContent content={currentQuestion.explanation} className="text-supporting leading-relaxed" />
                 </div>
               )}
             </div>
@@ -231,22 +228,38 @@ export function ReviewMode({ session, onExit }: ReviewModeProps) {
   );
 }
 
-function formatUserAnswer(
-  question: { type: string; options?: string[] },
-  answer: string | number | boolean | number[]
-): string {
+function UserAnswerDisplay({ 
+  question, 
+  answer 
+}: { 
+  question: { type: string; options?: string[] }; 
+  answer: string | number | boolean | number[];
+}) {
   switch (question.type) {
     case "mc":
-      return question.options?.[Number(answer) - 1] || String(answer);
+      const mcOption = question.options?.[Number(answer) - 1] || String(answer);
+      return <MathContent content={mcOption} className="text-option" />;
+    
     case "multi":
-      return Array.isArray(answer)
-        ? answer.map((idx: number) => question.options?.[idx - 1] || String(idx)).join(", ")
-        : String(answer);
+      if (Array.isArray(answer)) {
+        return (
+          <div className="space-y-2">
+            {answer.map((idx: number, i) => {
+              const option = question.options?.[idx - 1] || String(idx);
+              return <MathContent key={i} content={option} className="text-option" />;
+            })}
+          </div>
+        );
+      }
+      return <div className="text-option">{String(answer)}</div>;
+    
     case "tf":
-      return answer ? "True" : "False";
+      return <div className="text-option">{answer ? "True" : "False"}</div>;
+    
     case "short":
-      return String(answer);
+      return <MathContent content={String(answer)} className="text-option" />;
+    
     default:
-      return String(answer);
+      return <div className="text-option">{String(answer)}</div>;
   }
 }

@@ -111,6 +111,13 @@ Requirements:
 - Do not omit answers.
 - Preserve the meaning of the requested topic/material.
 
+Mathematical Notation:
+- Use LaTeX notation for mathematical expressions.
+- Inline math: \( ... \) for expressions within text.
+- Display math: \[ ... \] for standalone equations.
+- Examples: \(x^2 + 4\), \(\frac{a}{b}\), \(\sqrt{x}\), \[\sum_{i=1}^{n} i^2\]
+- Use LaTeX only for mathematical content, not for ordinary prose.
+
 Output strictly in Answering Worksheet Format v1.
 Do not wrap the worksheet in Markdown code fences.
 Do not add commentary before or after the worksheet.

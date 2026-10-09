@@ -1,6 +1,7 @@
 "use client";
 
 import type { MultiQuestion } from "@/types/worksheet";
+import { MathContent } from "@/components/common/MathContent";
 
 type MultiRendererProps = {
   question: MultiQuestion;
@@ -27,9 +28,7 @@ export function MultiRenderer({
 
   return (
     <div className="space-y-4">
-      <div className="text-question">
-        {question.question}
-      </div>
+      <MathContent content={question.question} className="text-question" />
 
       <div className="text-supporting mb-3">
         Select all that apply
@@ -58,8 +57,8 @@ export function MultiRenderer({
                 disabled={disabled}
                 className="mt-0.5 accent-[var(--gold-500)] h-4 w-4 shrink-0"
               />
-              <span className="flex-1 text-option">
-                {option}
+              <span className="flex-1">
+                <MathContent content={option} className="text-option" />
                 {isCorrect && showAnswer && (
                   <span className="ml-2 text-xs font-medium text-[var(--gold-400)]">
                     ✓ Correct answer

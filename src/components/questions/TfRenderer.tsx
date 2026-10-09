@@ -1,6 +1,7 @@
 "use client";
 
 import type { TfQuestion } from "@/types/worksheet";
+import { MathContent } from "@/components/common/MathContent";
 
 type TfRendererProps = {
   question: TfQuestion;
@@ -24,9 +25,7 @@ export function TfRenderer({
 
   return (
     <div className="space-y-4">
-      <div className="text-question">
-        {question.question}
-      </div>
+      <MathContent content={question.question} className="text-question" />
 
       <div className="grid grid-cols-2 gap-3">
         {options.map((option) => {

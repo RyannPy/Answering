@@ -1,6 +1,7 @@
 "use client";
 
 import type { ShortQuestion } from "@/types/worksheet";
+import { MathContent } from "@/components/common/MathContent";
 
 type ShortRendererProps = {
   question: ShortQuestion;
@@ -19,9 +20,7 @@ export function ShortRenderer({
 }: ShortRendererProps) {
   return (
     <div className="space-y-4">
-      <div className="text-question">
-        {question.question}
-      </div>
+      <MathContent content={question.question} className="text-question" />
 
       <input
         type="text"
@@ -37,8 +36,10 @@ export function ShortRenderer({
           <div className="text-metadata mb-2">
             Accepted answers:
           </div>
-          <div className="text-option">
-            {question.answer.join(", ")}
+          <div className="space-y-1">
+            {question.answer.map((answer, idx) => (
+              <MathContent key={idx} content={answer} className="text-option" />
+            ))}
           </div>
         </div>
       )}

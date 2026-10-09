@@ -23,12 +23,12 @@ export function TfRenderer({
   ];
 
   return (
-    <div className="space-y-3">
-      <div className="text-base text-[var(--text-primary)] font-medium mb-1">
+    <div className="space-y-4">
+      <div className="text-question">
         {question.question}
       </div>
 
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-3">
         {options.map((option) => {
           const isSelected = value === option.value;
           const isCorrect = showAnswer && question.answer === option.value;
@@ -39,19 +39,20 @@ export function TfRenderer({
               onClick={() => onChange(option.value)}
               disabled={disabled}
               className={`
-                flex-1 p-2 rounded-md border transition-colors duration-200 font-medium
+                p-4 rounded-md border font-medium text-base
+                transition-all duration-[var(--duration-fast)] ease-[var(--ease-out)]
                 ${
-                  isSelected
-                    ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
-                    : "border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+                  isSelected && !showAnswer
+                    ? "border-[var(--gold-500)] border-2 bg-[var(--gold-900)] text-[var(--text-primary)]"
+                    : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-elevated-hover)] hover:text-[var(--text-primary)]"
                 }
                 ${disabled ? "cursor-not-allowed opacity-60" : ""}
-                ${isCorrect && showAnswer ? "ring-1 ring-[var(--gold-bright)]" : ""}
+                ${isCorrect && showAnswer ? "border-[var(--gold-400)] border-2 bg-[var(--gold-900)]" : ""}
               `}
             >
               {option.label}
               {isCorrect && showAnswer && (
-                <span className="block text-xs text-[var(--gold-bright)] mt-0.5">
+                <span className="block text-xs font-medium text-[var(--gold-400)] mt-1">
                   ✓ Correct
                 </span>
               )}

@@ -9,66 +9,76 @@ type ModeSelectionProps = {
 
 export function ModeSelection({ worksheet, onSelectMode }: ModeSelectionProps) {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
-      <div className="container mx-auto px-4 md:px-6">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center py-20">
+      <div className="container">
         {/* Worksheet info */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-semibold text-[var(--text-primary)] mb-3">
+        <div className="text-center mb-16">
+          <h1 className="heading-page mb-4">
             {worksheet.title}
           </h1>
           {worksheet.description && (
-            <p className="text-lg text-[var(--text-secondary)] mb-6">
+            <p className="text-lg text-[var(--text-secondary)] mb-6 max-w-2xl mx-auto leading-relaxed">
               {worksheet.description}
             </p>
           )}
-          <div className="text-[var(--text-secondary)]">
+          <div className="text-supporting">
             {worksheet.questions.length} questions
           </div>
         </div>
 
         {/* Mode selection */}
-        <div className="mb-8 text-center">
-          <h2 className="text-xl text-[var(--text-primary)] mb-6">
+        <div className="mb-12 text-center">
+          <h2 className="heading-subsection text-[var(--text-secondary)] mb-8">
             Choose how you want to practice
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Quiz mode */}
           <button
             onClick={() => onSelectMode("quiz")}
-            className="p-8 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--gold-primary)] hover:bg-[var(--bg-secondary)] transition-all text-left group"
+            className="card-interactive p-10 text-left group"
           >
-            <div className="text-2xl font-semibold text-[var(--text-primary)] mb-3 group-hover:text-[var(--gold-bright)] transition-colors">
+            <div className="heading-section mb-4 group-hover:text-[var(--gold-400)] transition-colors duration-[var(--duration-fast)]">
               Quiz
             </div>
-            <div className="text-[var(--text-secondary)] mb-4">
+            <div className="text-supporting mb-6 leading-relaxed">
               Practice with immediate feedback after every answer.
             </div>
-            <div className="text-sm text-[var(--text-muted)]">
-              • See correct answers right away
-              <br />
-              • Learn as you go
-              <br />• Perfect for studying
+            <div className="space-y-2">
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • See correct answers right away
+              </div>
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • Learn as you go
+              </div>
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • Perfect for studying
+              </div>
             </div>
           </button>
 
           {/* Exam mode */}
           <button
             onClick={() => onSelectMode("exam")}
-            className="p-8 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--gold-primary)] hover:bg-[var(--bg-secondary)] transition-all text-left group"
+            className="card-interactive p-10 text-left group"
           >
-            <div className="text-2xl font-semibold text-[var(--text-primary)] mb-3 group-hover:text-[var(--gold-bright)] transition-colors">
+            <div className="heading-section mb-4 group-hover:text-[var(--gold-400)] transition-colors duration-[var(--duration-fast)]">
               Exam
             </div>
-            <div className="text-[var(--text-secondary)] mb-4">
+            <div className="text-supporting mb-6 leading-relaxed">
               Complete the test first, see results afterward.
             </div>
-            <div className="text-sm text-[var(--text-muted)]">
-              • No feedback until you submit
-              <br />
-              • Navigate between questions
-              <br />• Simulates real exam conditions
+            <div className="space-y-2">
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • No feedback until you submit
+              </div>
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • Navigate between questions
+              </div>
+              <div className="text-sm text-[var(--text-tertiary)]">
+                • Simulates real exam conditions
+              </div>
             </div>
           </button>
         </div>

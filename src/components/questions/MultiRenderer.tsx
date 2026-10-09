@@ -26,16 +26,16 @@ export function MultiRenderer({
   };
 
   return (
-    <div className="space-y-3">
-      <div className="text-base text-[var(--text-primary)] font-medium mb-1">
+    <div className="space-y-4">
+      <div className="text-question">
         {question.question}
       </div>
 
-      <div className="text-xs text-[var(--text-secondary)] mb-2">
+      <div className="text-supporting mb-3">
         Select all that apply
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         {question.options.map((option, index) => {
           const optionNumber = index + 1;
           const isSelected = value.includes(optionNumber);
@@ -45,33 +45,27 @@ export function MultiRenderer({
             <label
               key={optionNumber}
               className={`
-                block p-2 rounded-md border cursor-pointer transition-colors duration-200
-                ${
-                  isSelected
-                    ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10"
-                    : "border-[var(--border-subtle)] hover:border-[var(--border-strong)]"
-                }
-                ${disabled ? "cursor-not-allowed opacity-60" : ""}
-                ${isCorrect && showAnswer ? "ring-1 ring-[var(--gold-bright)]" : ""}
+                option-base flex items-start gap-3
+                ${isSelected && !showAnswer ? "option-selected" : ""}
+                ${isCorrect && showAnswer ? "option-correct" : ""}
+                ${disabled ? "option-disabled" : ""}
               `}
             >
-              <div className="flex items-start gap-2">
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() => handleToggle(optionNumber)}
-                  disabled={disabled}
-                  className="mt-0.5 accent-[var(--gold-primary)] h-3 w-3"
-                />
-                <span className="flex-1 text-[var(--text-primary)] text-sm">
-                  {option}
-                  {isCorrect && showAnswer && (
-                    <span className="ml-1 text-xs text-[var(--gold-bright)]">
-                      ✓ Correct answer
-                    </span>
-                  )}
-                </span>
-              </div>
+              <input
+                type="checkbox"
+                checked={isSelected}
+                onChange={() => handleToggle(optionNumber)}
+                disabled={disabled}
+                className="mt-0.5 accent-[var(--gold-500)] h-4 w-4 shrink-0"
+              />
+              <span className="flex-1 text-option">
+                {option}
+                {isCorrect && showAnswer && (
+                  <span className="ml-2 text-xs font-medium text-[var(--gold-400)]">
+                    ✓ Correct answer
+                  </span>
+                )}
+              </span>
             </label>
           );
         })}

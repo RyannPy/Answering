@@ -109,46 +109,48 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
     (Array.isArray(currentAnswer?.value) ? currentAnswer.value.length > 0 : true);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
       {/* Header */}
       <header className="border-b border-[var(--border-subtle)] bg-[var(--bg-deep)]">
-        <div className="container mx-auto py-4 flex items-center justify-between">
+        <div className="container py-4 flex items-center justify-between">
           <div className="text-xl font-semibold text-[var(--text-primary)]">
             Answering
           </div>
-          <div className="text-[var(--text-secondary)]">
+          <div className="text-supporting">
             Question {session.currentQuestionIndex + 1} / {session.worksheet.questions.length}
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto py-8">
+      <main className="flex-1 container py-12">
         {/* Worksheet title */}
-        <div className="mb-6">
-          <div className="text-sm text-[var(--text-muted)] mb-1">Quiz Mode</div>
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+        <div className="mb-10">
+          <div className="text-metadata mb-2">Quiz Mode</div>
+          <h1 className="heading-section">
             {session.worksheet.title}
           </h1>
         </div>
 
         {/* Question card */}
-        <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-6 mb-6">
-          <div className="text-sm text-[var(--text-muted)] mb-4">
-            Question {session.currentQuestionIndex + 1}
-          </div>
+        <div className="max-w-3xl mb-8">
+          <div className="card p-8">
+            <div className="text-question-number mb-4">
+              Question {session.currentQuestionIndex + 1}
+            </div>
 
-          <QuestionRenderer
-            question={currentQuestion}
-            value={currentAnswer?.value}
-            onChange={handleAnswerChange}
-            disabled={isSubmitted}
-            showAnswer={showFeedback && !currentResult?.correct}
-          />
+            <QuestionRenderer
+              question={currentQuestion}
+              value={currentAnswer?.value}
+              onChange={handleAnswerChange}
+              disabled={isSubmitted}
+              showAnswer={showFeedback && !currentResult?.correct}
+            />
+          </div>
         </div>
 
         {/* Feedback */}
         {showFeedback && currentResult && (
-          <div className="mb-6">
+          <div className="max-w-3xl mb-8">
             <Feedback
               correct={currentResult.correct}
               question={currentQuestion}
@@ -160,18 +162,11 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
 
         {/* Actions */}
         {!showFeedback && (
-          <div className="flex items-center justify-between">
+          <div className="max-w-3xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <button
               onClick={handlePrevious}
               disabled={session.currentQuestionIndex === 0}
-              className={`
-                px-6 py-3 rounded-lg border transition-colors
-                ${
-                  session.currentQuestionIndex === 0
-                    ? "border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
-                    : "border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated)]"
-                }
-              `}
+              className="btn btn-secondary"
             >
               ← Previous
             </button>
@@ -179,14 +174,7 @@ export function QuizMode({ session: initialSession, onComplete }: QuizModeProps)
             <button
               onClick={handleSubmit}
               disabled={!hasAnswer || isSubmitted}
-              className={`
-                px-8 py-3 rounded-lg font-medium transition-colors
-                ${
-                  hasAnswer && !isSubmitted
-                    ? "bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)]"
-                    : "bg-[var(--bg-secondary)] text-[var(--text-muted)] cursor-not-allowed"
-                }
-              `}
+              className="btn btn-primary btn-lg"
             >
               Submit Answer
             </button>

@@ -18,33 +18,29 @@ export function Feedback({
   return (
     <div
       className={`
-        p-6 rounded-lg border
-        ${
-          correct
-            ? "bg-[var(--success)]/10 border-[var(--success)]/30"
-            : "bg-[var(--error)]/10 border-[var(--error)]/30"
-        }
+        p-6 rounded-lg border animate-fade-in
+        ${correct ? "feedback-correct" : "feedback-incorrect"}
       `}
     >
-      <div className="flex items-start gap-3 mb-4">
+      <div className="flex items-start gap-4 mb-6">
         <div
           className={`
-            text-2xl
-            ${correct ? "text-[var(--success)]" : "text-[var(--error)]"}
+            text-3xl shrink-0
+            ${correct ? "text-[var(--success-500)]" : "text-[var(--error-500)]"}
           `}
         >
           {correct ? "✓" : "✕"}
         </div>
-        <div>
+        <div className="flex-1">
           <div
             className={`
-              text-lg font-medium mb-1
-              ${correct ? "text-[var(--success)]" : "text-[var(--error)]"}
+              text-xl font-semibold mb-2
+              ${correct ? "text-[var(--success-500)]" : "text-[var(--error-500)]"}
             `}
           >
             {correct ? "Correct" : "Incorrect"}
           </div>
-          <div className="text-[var(--text-secondary)]">
+          <div className="text-supporting">
             {correct
               ? "Your answer is correct."
               : "Your answer is not correct."}
@@ -53,30 +49,30 @@ export function Feedback({
       </div>
 
       {!correct && (
-        <div className="mb-4 p-4 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
-          <div className="text-sm text-[var(--text-secondary)] mb-2">
+        <div className="mb-6 surface p-4">
+          <div className="text-metadata mb-2">
             Correct answer:
           </div>
-          <div className="text-[var(--text-primary)]">
+          <div className="text-option">
             {getCorrectAnswerDisplay(question)}
           </div>
         </div>
       )}
 
       {question.explanation && (
-        <div className="mb-4 p-4 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
-          <div className="text-sm text-[var(--text-secondary)] mb-2">
+        <div className="mb-6 surface p-4">
+          <div className="text-metadata mb-2">
             Explanation:
           </div>
-          <div className="text-[var(--text-primary)]">{question.explanation}</div>
+          <div className="text-supporting leading-relaxed">{question.explanation}</div>
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {!correct && onTryAgain && (
           <button
             onClick={onTryAgain}
-            className="px-6 py-2 rounded-lg border border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors"
+            className="btn btn-secondary btn-sm"
           >
             Try Again
           </button>
@@ -84,7 +80,7 @@ export function Feedback({
         {onContinue && (
           <button
             onClick={onContinue}
-            className="px-6 py-2 rounded-lg bg-[var(--gold-primary)] text-[var(--bg-primary)] font-medium hover:bg-[var(--gold-bright)] transition-colors"
+            className="btn btn-primary btn-sm"
           >
             Continue
           </button>

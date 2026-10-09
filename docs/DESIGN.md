@@ -1,1014 +1,1801 @@
-# Answering — Design System & UX
+# Answering — Design System v2
 
-## 1. Design Direction
-
-Answering is a focused interactive worksheet application.
-
-The visual identity should feel:
-
-- dark
-- premium
-- calm
-- academic
-- focused
-- slightly editorial
-- distinctive
-- intentional
-
-The interface should feel like a **serious personal study workspace**, not an AI dashboard.
-
-### Primary visual concept
-
-> Dark paper / dark workspace + restrained gold accents.
-
-Gold represents:
-
-- focus
-- progress
-- achievement
-- important actions
-- selected states
-
-Gold must NOT become the default color of every component.
-
-The majority of the interface should remain dark and neutral.
+**Modern. Refined. Academic.**
 
 ---
 
-# 2. Design Principles
+## Design Philosophy
 
-## 2.1 Dark First
+Answering is a focused interactive worksheet application for serious study.
 
-Answering is fundamentally a dark-mode application.
+The interface should feel:
 
-Use dark neutral surfaces as the foundation.
+- **Intentional, not generic** — Every element has a purpose
+- **Modern, not trendy** — Contemporary without chasing short-lived trends
+- **Refined, not flashy** — Premium quality through restraint
+- **Academic, not corporate** — Study tool, not business dashboard
+- **Interactive, not animated** — Feedback that matters, not decoration
+- **Composed, not card-heavy** — Structure through hierarchy, not containers
 
-Avoid:
-
-- pure black everywhere
-- excessive contrast between every component
-- bright colored backgrounds
-- large glowing gradients
-
-The UI should have depth through:
-
-- surface hierarchy
-- borders
-- spacing
-- typography
-- subtle tonal differences
-
-rather than shadows and glow.
+The original dark + gold identity remains intact. This redesign makes it feel significantly more polished, interactive, and characterful without abandoning what makes Answering distinctive.
 
 ---
 
-## 2.2 Gold as an Accent
+## Product Personality
 
-Gold is the primary brand accent.
+> **A beautifully designed digital study sheet — not an AI dashboard.**
 
-Gold should be used selectively for:
+Answering should feel like:
 
-- primary CTA
-- active navigation
-- selected answer
-- important progress state
-- success/result emphasis
-- small decorative details
+- A premium personal workspace
+- A refined academic instrument
+- A thoughtfully crafted study environment
+- A focused practice tool
 
-Gold should not be used as:
+Answering should NOT feel like:
 
-- the entire page background
-- every button
-- every border
-- every icon
-- large glowing gradients
-
-The interface should still look coherent if most gold elements are removed.
+- A generic SaaS dashboard
+- An AI marketing website
+- A colorful gamified quiz app
+- A corporate enterprise admin panel
+- A flat text-only terminal
+- An empty minimalist concept
 
 ---
 
-## 2.3 No "AI Aesthetic"
+## Visual Direction
 
-Avoid the common generic AI visual language.
+### Core Identity
 
-Do NOT use:
+Dark, gold, academic, focused, confident, understated.
 
-- neon cyan/purple gradients
-- glowing cards
-- excessive blur
-- excessive glassmorphism
-- huge gradient text
-- floating holographic elements
-- glowing borders
-- excessive rounded cards
-- decorative AI particles
-- unnecessary charts
-- dashboard-style data overload
+### What Changed From v1
 
-Answering is not an AI product.
+**v1 Problems:**
+- Too flat (no depth)
+- Too monotonous (visual repetition)
+- Too rigid (lacked warmth)
+- Slightly old-fashioned
+- Overly utility-dashboard-like
+- Everything looked the same
 
-AI is only part of the user's workflow for creating questions.
+**v2 Solutions:**
+- Subtle layered depth through tonal surfaces
+- Stronger typography hierarchy
+- Refined interactive states
+- Modern spacing and composition
+- Contextual surfaces (not cards everywhere)
+- Distinct visual roles for components
 
-The product itself should feel like a **study instrument**.
+### What Did NOT Change
 
----
+The black + gold foundation remains the identity.
 
-# 3. Color System
+Gold is still restrained, not everywhere.
 
-The exact values may be refined during implementation, but the visual direction should remain within this family.
+The product is still a focused study tool.
 
-## Background
-
-Primary page background:
-
-```text
-#0B0B0A
-```
-
-````
-
-Deep surface:
-
-```text
-#10100F
-```
-
-Elevated surface:
-
-```text
-#151513
-```
-
-Secondary surface:
-
-```text
-#1B1A17
-```
-
-These surfaces should be close enough that the interface feels cohesive.
+No AI aesthetic introduced.
 
 ---
 
-## Gold
+# Color System
 
-Primary gold:
+## Foundation Palette
 
-```text
-#C9A227
+### Backgrounds
+
+```css
+--bg-primary: #0B0B0A        /* Main page background */
+--bg-deep: #0E0E0D           /* Recessed surfaces */
+--bg-elevated: #141412       /* Raised surfaces */
+--bg-elevated-hover: #1A1917 /* Hover state for elevated */
+--bg-surface: #1E1D1A        /* Secondary surfaces */
+--bg-subtle: #242320         /* Tertiary surfaces */
 ```
 
-Bright gold:
+**Usage:**
+- Body: `--bg-primary`
+- Question cards: `--bg-elevated`
+- Nested content: `--bg-surface`
+- Inset areas: `--bg-deep`
 
-```text
-#E0BD55
+### Gold Accents
+
+```css
+--gold-50: #FDF8E8           /* Tint (rarely used) */
+--gold-100: #F5E6B8          /* Very light gold */
+--gold-200: #E8D495          /* Light gold */
+--gold-300: #D9BE6C          /* Soft gold */
+--gold-400: #C9A94B          /* Medium gold */
+--gold-500: #C9A227          /* Primary gold (main accent) */
+--gold-600: #A88820          /* Dark gold */
+--gold-700: #8A6F1A          /* Deeper gold */
+--gold-800: #6B5615          /* Very dark gold */
+--gold-900: #4D3E0F          /* Almost black gold */
 ```
 
-Muted gold:
+**Primary usage:**
+- Primary CTA: `--gold-500` background
+- Active states: `--gold-500` border
+- Selected options: `--gold-500` border + `--gold-900` background
+- Hover: `--gold-400`
+- Focus rings: `--gold-500`
+- Progress: `--gold-500`
 
-```text
-#92731E
+**Anti-pattern:**
+Do NOT use gold for every button, border, heading, icon, or decoration.
+
+### Text
+
+```css
+--text-primary: #F5F3EB      /* Main content */
+--text-secondary: #C4C1B8    /* Supporting text */
+--text-tertiary: #8F8C84     /* De-emphasized */
+--text-muted: #5E5C56        /* Metadata, labels */
+--text-disabled: #3A3937     /* Disabled states */
+--text-on-gold: #0B0B0A      /* Text on gold backgrounds */
 ```
 
-Gold should be used carefully.
+**Hierarchy:**
+- Question text: `--text-primary`
+- Answer options: `--text-primary`
+- Instructions: `--text-secondary`
+- Metadata: `--text-tertiary`
+- Placeholders: `--text-muted`
 
-Prefer solid gold accents over gradients.
+### Borders
+
+```css
+--border-none: transparent
+--border-subtle: #242320     /* Almost invisible dividers */
+--border-soft: #2E2D28       /* Quiet borders */
+--border-default: #3A3831    /* Standard borders */
+--border-strong: #4A4740     /* Prominent borders */
+--border-emphasis: #5C5A51   /* High contrast borders */
+```
+
+**Usage:**
+- Default cards: `--border-default`
+- Hover: `--border-strong`
+- Active/Selected: `--gold-500`
+- Dividers: `--border-subtle`
+
+### Semantic Colors
+
+```css
+/* Success */
+--success-50: #EEF5F0
+--success-500: #4A7C59       /* Primary success */
+--success-600: #3D6749
+--success-700: #2F4F37
+--success-900: #1A2B20
+
+/* Error */
+--error-50: #F9EEEF
+--error-500: #B04449          /* Primary error */
+--error-600: #8E353A
+--error-700: #6D272B
+--error-900: #3D1618
+
+/* Warning */
+--warning-50: #F9F5ED
+--warning-500: #A88852        /* Primary warning */
+--warning-600: #8A6F42
+--warning-700: #6B5532
+--warning-900: #3D3020
+
+/* Info */
+--info-500: #6B8A9A           /* Neutral info (not blue) */
+```
+
+**Usage:**
+- Correct feedback: `--success-500` with `--success-900` background
+- Incorrect feedback: `--error-500` with `--error-900` background
+- Warnings: `--warning-500` with `--warning-900` background
+
+**Anti-pattern:**
+Do NOT use neon green/red. Keep semantic colors muted and secondary to gold.
 
 ---
 
-## Text
+# Typography
 
-Primary:
+## Font Stack
 
-```text
-#F4F1E8
+```css
+--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+--font-mono: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
 ```
 
-Secondary:
+Use Inter (or Geist Sans if available) for all UI text.
 
-```text
-#B7B3A8
+Use monospace only for generated prompts and code-like content.
+
+## Type Scale
+
+```css
+--text-xs: 0.75rem;          /* 12px - Tiny metadata */
+--text-sm: 0.875rem;         /* 14px - Supporting text */
+--text-base: 1rem;           /* 16px - Body text */
+--text-lg: 1.125rem;         /* 18px - Emphasis */
+--text-xl: 1.25rem;          /* 20px - Subheadings */
+--text-2xl: 1.5rem;          /* 24px - Section headings */
+--text-3xl: 1.875rem;        /* 30px - Page headings */
+--text-4xl: 2.25rem;         /* 36px - Display small */
+--text-5xl: 3rem;            /* 48px - Display large */
+--text-6xl: 3.75rem;         /* 60px - Hero only */
 ```
 
-Muted:
+## Weights
 
-```text
-#77746C
+```css
+--font-normal: 400;          /* Body text */
+--font-medium: 500;          /* Emphasis */
+--font-semibold: 600;        /* Headings */
+--font-bold: 700;            /* Strong emphasis (rarely) */
+```
+
+## Line Heights
+
+```css
+--leading-tight: 1.25;       /* Headings */
+--leading-snug: 1.375;       /* Compact text */
+--leading-normal: 1.5;       /* Body text */
+--leading-relaxed: 1.625;    /* Reading text */
+--leading-loose: 2;          /* Spacious text (rarely) */
+```
+
+## Typography Hierarchy
+
+### Display (Home page hero)
+
+```css
+font-size: var(--text-6xl);
+font-weight: var(--font-semibold);
+line-height: var(--leading-tight);
+letter-spacing: -0.02em;
+color: var(--text-primary);
+```
+
+### Page Heading
+
+```css
+font-size: var(--text-4xl);
+font-weight: var(--font-semibold);
+line-height: var(--leading-tight);
+color: var(--text-primary);
+```
+
+### Section Heading
+
+```css
+font-size: var(--text-2xl);
+font-weight: var(--font-semibold);
+line-height: var(--leading-tight);
+color: var(--text-primary);
+```
+
+### Question Number
+
+```css
+font-size: var(--text-sm);
+font-weight: var(--font-medium);
+line-height: var(--leading-normal);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-tertiary);
+```
+
+### Question Text
+
+```css
+font-size: var(--text-xl);
+font-weight: var(--font-medium);
+line-height: var(--leading-relaxed);
+color: var(--text-primary);
+```
+
+### Answer Option
+
+```css
+font-size: var(--text-base);
+font-weight: var(--font-normal);
+line-height: var(--leading-normal);
+color: var(--text-primary);
+```
+
+### Supporting Text
+
+```css
+font-size: var(--text-sm);
+font-weight: var(--font-normal);
+line-height: var(--leading-normal);
+color: var(--text-secondary);
+```
+
+### Metadata / Labels
+
+```css
+font-size: var(--text-xs);
+font-weight: var(--font-medium);
+line-height: var(--leading-normal);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-muted);
 ```
 
 ---
 
-## Borders
+# Spacing System
 
-Subtle:
+8px base unit.
 
-```text
-#282721
+```css
+--space-0: 0;
+--space-1: 0.25rem;          /* 4px */
+--space-2: 0.5rem;           /* 8px */
+--space-3: 0.75rem;          /* 12px */
+--space-4: 1rem;             /* 16px */
+--space-5: 1.25rem;          /* 20px */
+--space-6: 1.5rem;           /* 24px */
+--space-8: 2rem;             /* 32px */
+--space-10: 2.5rem;          /* 40px */
+--space-12: 3rem;            /* 48px */
+--space-16: 4rem;            /* 64px */
+--space-20: 5rem;            /* 80px */
+--space-24: 6rem;            /* 96px */
+--space-32: 8rem;            /* 128px */
 ```
 
-Strong:
+## Spacing Usage
 
-```text
-#39362B
-```
+### Micro (4–8px)
+- Icon padding
+- Inline gaps
+- Tight list spacing
 
-Borders should be subtle and should not visually dominate the interface.
+### Small (12–16px)
+- Form field internal padding
+- Button padding
+- Card internal spacing
+
+### Medium (20–32px)
+- Section gaps
+- Component spacing
+- Card padding
+
+### Large (40–64px)
+- Major section spacing
+- Page padding
+- Content block separation
+
+### Extra Large (80–128px)
+- Hero spacing
+- Landing page sections
+- Empty state spacing
 
 ---
 
-## Semantic Colors
+# Layout & Content Width
 
-Success:
+## Max Widths
 
-Use a restrained green.
+```css
+--width-xs: 20rem;           /* 320px - Compact forms */
+--width-sm: 24rem;           /* 384px - Small modals */
+--width-md: 28rem;           /* 448px - Standard modals */
+--width-lg: 32rem;           /* 512px - Worksheet input */
+--width-xl: 36rem;           /* 576px - Long forms */
+--width-2xl: 42rem;          /* 672px - Reading width */
+--width-3xl: 48rem;          /* 768px - Article width */
+--width-4xl: 56rem;          /* 896px - Question cards */
+--width-5xl: 64rem;          /* 1024px - Max prose */
+--width-6xl: 72rem;          /* 1152px - App container */
+--width-7xl: 80rem;          /* 1280px - Wide layouts */
+--width-full: 100%;
+```
+
+## Application Layout
+
+### Desktop (≥1024px)
+
+```
+┌────────────────────────────────────────────────────────────┐
+│ Header (full width)                                        │
+├──────────────────────────────────────┬─────────────────────┤
+│                                      │                     │
+│ Main Content Area                    │ Navigation Sidebar  │
+│ (--width-4xl max)                   │ (fixed 240px)       │
+│                                      │                     │
+│                                      │                     │
+└──────────────────────────────────────┴─────────────────────┘
+```
+
+### Mobile (<1024px)
+
+```
+┌──────────────────────┐
+│ Header               │
+├──────────────────────┤
+│                      │
+│ Content (full width) │
+│                      │
+│                      │
+├──────────────────────┤
+│ Navigation (bottom)  │
+└──────────────────────┘
+```
+
+## Content Padding
+
+- Desktop: `--space-8` (32px) horizontal
+- Tablet: `--space-6` (24px) horizontal
+- Mobile: `--space-4` (16px) horizontal
+
+---
+
+# Surfaces & Depth
+
+## Depth Strategy
+
+Create depth through:
+
+1. **Tonal layering** — Lighter surfaces feel elevated
+2. **Borders** — Subtle outlines define boundaries
+3. **Minimal shadows** — Only when elevation is critical
+4. **Inset surfaces** — Darker = recessed
+
+Do NOT rely on:
+- Large drop shadows
+- Glowing effects
+- Heavy blur
+- Excessive glassmorphism
+
+## Surface Hierarchy
+
+```
+Level 0: bg-primary (page background)
+  ↓
+Level 1: bg-elevated (main cards)
+  ↓
+Level 2: bg-surface (nested content)
+  ↓
+Level 3: bg-subtle (tertiary surfaces)
+```
+
+## Card Treatment
+
+Default card:
+
+```css
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-lg);
+```
+
+Hover card:
+
+```css
+border-color: var(--border-strong);
+```
+
+Active/Selected card:
+
+```css
+border-color: var(--gold-500);
+background: var(--bg-elevated-hover);
+```
+
+## When NOT to Use Cards
+
+Do NOT wrap every component in a card.
+
+Use cards only when:
+- Grouping related content
+- Creating clear boundaries
+- Establishing interactive surfaces
+- Containing forms
+
+Do NOT use cards for:
+- Every text block
+- Individual headings
+- Single buttons
+- Navigation items
+- Already-grouped content inside cards
+
+Prefer:
+- Dividers
+- Spacing
+- Typography hierarchy
+- Background tonal differences
+
+---
+
+# Borders & Radius
+
+## Border Radius
+
+```css
+--radius-sm: 4px;            /* Small controls */
+--radius-md: 6px;            /* Standard inputs */
+--radius-lg: 8px;            /* Cards */
+--radius-xl: 12px;           /* Large surfaces */
+--radius-2xl: 16px;          /* Hero elements (rare) */
+--radius-full: 9999px;       /* Pills, badges */
+```
+
+**Usage:**
+- Buttons: `--radius-md`
+- Input fields: `--radius-md`
+- Cards: `--radius-lg`
+- Question cards: `--radius-lg`
+- Badges: `--radius-full`
+
+Do NOT use excessive rounding (24px+).
+
+## Border Width
+
+```css
+--border-width-0: 0;
+--border-width-1: 1px;       /* Default */
+--border-width-2: 2px;       /* Emphasis */
+--border-width-4: 4px;       /* Strong emphasis (rare) */
+```
+
+Default border: 1px.
+
+Use 2px for:
+- Selected state
+- Active focus
+- Error state
+
+---
+
+# Shadows
+
+Use shadows sparingly.
+
+## Shadow Scale
+
+```css
+--shadow-none: none;
+--shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+--shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+--shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.16);
+--shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
+```
+
+**Usage:**
+- Most cards: `--shadow-none` (use borders instead)
+- Elevated modals: `--shadow-md`
+- Dropdown menus: `--shadow-lg`
+- Focus states: Use outline, not shadow
+
+**Anti-pattern:**
+Do NOT add shadows to every card.
+
+Do NOT use colored/glowing shadows.
+
+---
+
+# Motion
+
+## Duration
+
+```css
+--duration-instant: 0ms;
+--duration-fast: 100ms;
+--duration-normal: 200ms;
+--duration-slow: 300ms;
+--duration-slower: 500ms;
+```
+
+**Usage:**
+- Hover: `--duration-fast` (100ms)
+- Transitions: `--duration-normal` (200ms)
+- Modal open/close: `--duration-slow` (300ms)
+- Page transitions: `--duration-slower` (500ms)
+
+## Easing
+
+```css
+--ease-linear: linear;
+--ease-in: cubic-bezier(0.4, 0, 1, 1);
+--ease-out: cubic-bezier(0, 0, 0.2, 1);
+--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+```
+
+**Default:** `--ease-out` for most transitions.
+
+## Transition Properties
+
+Animate:
+- `opacity`
+- `transform`
+- `background-color`
+- `border-color`
+- `color`
+
+Do NOT animate:
+- `width` / `height` (use transform scale)
+- `padding` / `margin`
+- `box-shadow` (expensive)
+
+## Motion Principles
+
+- **Fast interactions** — Hover/focus should feel instant
+- **Medium transitions** — State changes should be smooth
+- **Slow emphasis** — Important moments can be deliberate
+- **Never block** — Animation should never delay the user
+
+**Anti-pattern:**
+- Bouncing
+- Excessive scaling
+- Floating effects
+- Continuous motion
+- Decorative particles
+- Unnecessary page transitions
+
+---
+
+# Iconography
+
+Use icons sparingly and consistently.
+
+## Icon System
+
+Choose one icon library:
+- Lucide (recommended)
+- Heroicons
+- Feather
+
+**Size scale:**
+```css
+--icon-xs: 12px;
+--icon-sm: 16px;
+--icon-base: 20px;
+--icon-lg: 24px;
+--icon-xl: 32px;
+```
+
+## Icon Usage
+
+Use icons for:
+- Actions (copy, submit, navigate)
+- Status indicators (correct ✓, incorrect ✕)
+- Navigation affordances (arrows)
+- Visual labels (settings, help)
+
+Do NOT use icons for:
+- Decoration
+- Every button
+- Every heading
+- Replacing clear text
+
+Icons must have accessible labels.
+
+---
+
+# Buttons
+
+## Button Variants
+
+### Primary
+
+Purpose: Main action.
+
+```css
+background: var(--gold-500);
+color: var(--text-on-gold);
+border: none;
+font-weight: var(--font-medium);
+```
+
+Hover:
+```css
+background: var(--gold-400);
+```
+
+### Secondary
+
+Purpose: Supporting action.
+
+```css
+background: var(--bg-surface);
+color: var(--text-primary);
+border: 1px solid var(--border-default);
+font-weight: var(--font-medium);
+```
+
+Hover:
+```css
+background: var(--bg-elevated-hover);
+border-color: var(--border-strong);
+```
+
+### Ghost
+
+Purpose: Low-emphasis action.
+
+```css
+background: transparent;
+color: var(--text-secondary);
+border: none;
+font-weight: var(--font-normal);
+```
+
+Hover:
+```css
+color: var(--text-primary);
+background: var(--bg-elevated);
+```
+
+### Destructive
+
+Purpose: Dangerous action (rarely used).
+
+```css
+background: var(--error-500);
+color: var(--text-primary);
+border: none;
+font-weight: var(--font-medium);
+```
+
+## Button Sizes
+
+### Small
+
+```css
+padding: var(--space-2) var(--space-4);  /* 8px 16px */
+font-size: var(--text-sm);
+border-radius: var(--radius-md);
+```
+
+### Medium (default)
+
+```css
+padding: var(--space-3) var(--space-6);  /* 12px 24px */
+font-size: var(--text-base);
+border-radius: var(--radius-md);
+```
+
+### Large
+
+```css
+padding: var(--space-4) var(--space-8);  /* 16px 32px */
+font-size: var(--text-lg);
+border-radius: var(--radius-lg);
+```
+
+## Button States
+
+### Hover
+
+```css
+transition: all var(--duration-fast) var(--ease-out);
+```
+
+Visual change: background/border color shift.
+
+### Focus
+
+```css
+outline: 2px solid var(--gold-500);
+outline-offset: 2px;
+```
+
+### Active (pressed)
+
+```css
+transform: scale(0.98);
+```
+
+### Disabled
+
+```css
+opacity: 0.4;
+cursor: not-allowed;
+pointer-events: none;
+```
+
+---
+
+# Forms & Controls
+
+## Text Input
+
+```css
+padding: var(--space-3) var(--space-4);  /* 12px 16px */
+background: var(--bg-deep);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
+color: var(--text-primary);
+font-size: var(--text-base);
+```
+
+Hover:
+```css
+border-color: var(--border-strong);
+```
+
+Focus:
+```css
+border-color: var(--gold-500);
+outline: none;
+box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+```
 
 Error:
-
-Use a restrained red.
-
-Warning:
-
-Use a muted amber.
-
-These semantic colors must remain secondary to the gold brand identity.
-
-Do not turn success/error states into glowing neon blocks.
-
----
-
-# 4. Typography
-
-Typography should feel clean and editorial.
-
-Use a modern sans-serif as the primary UI font.
-
-Recommended:
-
-- Inter
-- Geist
-- Geist Sans
-
-The application should prioritize readability over stylistic typography.
-
-## Hierarchy
-
-Landing page:
-
-- large expressive headline
-- medium supporting text
-- compact navigation
-
-Application:
-
-- clear worksheet title
-- strong question text
-- readable answer text
-- small supporting metadata
-
-Questions should be visually dominant over UI chrome.
-
----
-
-# 5. Layout Philosophy
-
-The reference dashboard image is used primarily for its **layout structure**.
-
-Do not copy its visual styling.
-
-Answering should use a strong spatial hierarchy.
-
-The main worksheet experience follows:
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ Header                                                      │
-├───────────────────────────────────────────────┬─────────────┤
-│                                               │             │
-│                                               │ Question    │
-│              QUESTION AREA                   │ Navigation  │
-│                                               │             │
-│                                               │             │
-│                                               │             │
-├───────────────────────────────────────────────┤             │
-│ Question actions / navigation                 │             │
-└───────────────────────────────────────────────┴─────────────┘
+```css
+border-color: var(--error-500);
 ```
 
-The left side is the primary workspace.
+## Textarea
 
-The right side is supporting navigation.
+Same as text input, with:
 
----
-
-# 6. Landing Page
-
-The landing page should take inspiration from the second reference image:
-
-- generous spacing
-- centered content
-- strong headline
-- restrained navigation
-- large visual breathing room
-- simple CTA
-
-However, Answering must have its own identity.
-
-## Hero
-
-Possible structure:
-
-```text
-                         ANSWERING
-
-              Practice questions.
-              Without the back-and-forth.
-
-       Turn structured questions into an interactive
-                 worksheet you can actually use.
-
-                  [ Start Practicing ]
+```css
+resize: vertical;
+min-height: 120px;
 ```
 
-The exact copy is not fixed by this document.
+## Select
 
-The visual hierarchy is more important.
+Same base styling as text input.
 
----
+## Radio Button
 
-## Background
+Do NOT use default browser radio buttons as the primary visual.
 
-The landing page may use:
+Custom radio:
 
-- subtle dark tonal variation
-- extremely subtle texture/grid if useful
-- thin structural lines
-- restrained gold detail
-
-Avoid:
-
-- large background illustrations
-- glowing gradients
-- floating 3D objects
-- excessive decorative elements
-
-The background should feel almost like a dark desk or study surface.
-
----
-
-# 7. Application Entry Flow
-
-After clicking Start, the user should enter a simple preparation flow.
-
-The conceptual flow is:
-
-```text
-Landing
-   ↓
-Get Prompt
-   ↓
-Input Worksheet
-   ↓
-Preparation
-   ↓
-Choose Mode
-   ↓
-Practice
+```css
+/* Container */
+padding: var(--space-3) var(--space-4);
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
+cursor: pointer;
+transition: all var(--duration-fast) var(--ease-out);
 ```
 
-The user should always understand which stage they are currently in.
+Selected:
+```css
+border-color: var(--gold-500);
+background: var(--gold-900);
+```
+
+Correct answer (showAnswer):
+```css
+border-color: var(--gold-400);
+border-width: 2px;
+```
+
+## Checkbox
+
+Similar to radio, but allow multiple.
+
+Selected:
+```css
+border-color: var(--gold-500);
+background: var(--gold-900);
+```
+
+## Label
+
+```css
+font-size: var(--text-sm);
+font-weight: var(--font-medium);
+color: var(--text-primary);
+margin-bottom: var(--space-2);
+```
 
 ---
 
-# 8. Get Prompt
+# Answer Options
 
-This page allows the user to create a prompt for an external AI.
+## Multiple Choice
 
-The purpose is not to generate questions inside Answering.
+Visual structure:
 
-It is a prompt builder.
-
-## Structure
-
-```text
-Create your worksheet
-
-Question count
-[ 20 ]
-
-Source
-○ My material
-○ General knowledge
-
-Difficulty
-○ Simple
-○ Normal
-○ HOTS
-○ Mixed
-
-Question types
-☑ Multiple Choice
-☑ Multiple Select
-☑ True / False
-☑ Short Answer
-
-             [ Generate Prompt ]
 ```
-
-After generation:
-
-```text
-Your prompt
-
 ┌─────────────────────────────────────────┐
-│                                         │
-│ generated prompt...                     │
-│                                         │
+│ ○ Option A                              │
 └─────────────────────────────────────────┘
-
-[ Copy Prompt ]
 ```
 
-The prompt builder should feel lightweight.
-
-Do not make it look like a complex AI configuration dashboard.
-
----
-
-# 9. Input Worksheet
-
-After obtaining questions from external AI, the user pastes the structured worksheet.
-
-## Structure
-
-```text
-Import Worksheet
-
-Paste your Answering worksheet below.
-
-┌─────────────────────────────────────────┐
-│ @worksheet                              │
-│ title: ...                              │
-│                                         │
-│ @question                               │
-│ ...                                     │
-└─────────────────────────────────────────┘
-
-              [ Load Worksheet ]
+Default state:
+```css
+padding: var(--space-3);
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
 ```
 
-The user should also be able to see validation feedback.
-
-Example:
-
-```text
-✓ Worksheet recognized
-20 questions
-4 question types
+Hover:
+```css
+border-color: var(--border-strong);
+background: var(--bg-elevated-hover);
 ```
 
-or:
-
-```text
-Could not load worksheet
-
-Question 7 has an invalid answer reference.
+Selected:
+```css
+border-color: var(--gold-500);
+border-width: 2px;
+background: var(--gold-900);
 ```
 
-Errors should be understandable to a normal user.
-
----
-
-# 10. Preparation Page
-
-Before answering, show a short preparation screen.
-
-This gives the user a mental transition from "importing questions" to "actually studying".
-
-## Information
-
-Possible information:
-
-```text
-Discrete Structures
-Pigeonhole Principle
-
-20 questions
-4 question types
-Estimated difficulty: Mixed
-
-Multiple Choice       8
-Multiple Select       4
-True / False          4
-Short Answer          4
-```
-
-Then:
-
-```text
-Choose how you want to practice
-
-┌─────────────────────┐
-│ Quiz                │
-│                     │
-│ Immediate feedback  │
-│ after every answer  │
-│                     │
-│ [ Select Quiz ]     │
-└─────────────────────┘
-
-┌─────────────────────┐
-│ Exam                │
-│                     │
-│ Results are hidden  │
-│ until submission    │
-│                     │
-│ [ Select Exam ]     │
-└─────────────────────┘
-```
-
-The preparation page should not become a statistics dashboard.
-
-Keep it concise.
-
----
-
-# 11. Quiz Mode
-
-Quiz Mode is optimized for learning.
-
-The user sees one question at a time.
-
-## Main Layout
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ Answering                                  7 / 20          │
-├───────────────────────────────────────────────┬─────────────┤
-│                                               │             │
-│  Question 7                                   │ 01 ✓        │
-│                                               │ 02 ✓        │
-│  What is the negation of p → q?               │ 03 ✓        │
-│                                               │ 04          │
-│                                               │ 05          │
-│  ○ ¬p ∧ q                                     │ 06          │
-│  ○ p ∧ ¬q                                     │ 07 •        │
-│  ○ p ∨ ¬q                                     │ 08          │
-│  ○ ¬p ∨ q                                     │ ...         │
-│                                               │             │
-│                         [ Submit Answer ]      │             │
-└───────────────────────────────────────────────┴─────────────┘
-```
-
-The left area is the actual worksheet.
-
-The right area is navigation.
-
----
-
-# 12. Question Navigation
-
-The navigation panel is intentionally inspired by the right-side narrow panel of the first reference.
-
-It should display question numbers.
-
-Possible states:
-
-```text
-01  completed
-02  completed
-03  incorrect
-04  unanswered
-05  current
-```
-
-Use subtle states.
-
-Do not make the navigation look like a calendar or analytics dashboard.
-
-Question numbers should be compact and easy to scan.
-
----
-
-# 13. Quiz Feedback
-
-After submitting an answer:
-
-Correct:
-
-```text
-✓ Correct
-
-Your answer is correct.
-
-[ Next Question ]
+Correct (Quiz feedback):
+```css
+border-color: var(--gold-400);
+border-width: 2px;
+background: var(--gold-900);
 ```
 
 Incorrect:
-
-```text
-✕ Incorrect
-
-Correct answer:
-p ∧ ¬q
-
-Explanation:
-...
-
-[ Try Again ]    [ Next Question ]
+```css
+border-color: var(--error-500);
+background: var(--error-900);
 ```
 
-The exact interaction may be refined during implementation.
+## Multiple Select
 
-The important rule:
+Same as Multiple Choice, but:
 
-> Quiz Mode is allowed to reveal the answer immediately.
+- Use checkboxes, not radio buttons
+- Show "Select all that apply" instruction
+- Allow multiple selections
 
----
+## True / False
 
-# 14. Exam Mode
-
-Exam Mode should feel more restrained.
-
-Do not expose correctness while the exam is active.
-
-The layout remains similar:
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ Answering                         Question 7 / 20           │
-├───────────────────────────────────────────────┬─────────────┤
-│                                               │             │
-│                QUESTION                       │ 01 ✓        │
-│                                               │ 02 ✓        │
-│                answers                        │ 03          │
-│                                               │ 04 •        │
-│                                               │ ...         │
-│                                               │             │
-│  [ Previous ]                    [ Next ]      │             │
-└───────────────────────────────────────────────┴─────────────┘
-```
-
-The navigation should clearly distinguish:
-
-- answered
-- unanswered
-- current
-
-Do not show:
-
-- correct/incorrect
-- correct answer
-- score
-
-until submission.
-
----
-
-# 15. Exam Submission
-
-Before submission, provide a clear confirmation.
-
-Example:
-
-```text
-Ready to submit?
-
-20 questions
-18 answered
-2 unanswered
-
-[ Continue Exam ]   [ Submit Exam ]
-```
-
-After submission:
-
-```text
-Your Result
-
-16 / 20
-
-80%
-
-Correct       16
-Incorrect      4
-Unanswered     0
-
-[ Review Answers ]
-```
-
-The result page should be calm and focused.
-
-Avoid turning the score into a giant gamified celebration.
-
----
-
-# 16. Review
-
-After Quiz or Exam completion, users should be able to review questions.
-
-Possible status:
-
-```text
-01  ✓
-02  ✓
-03  ✕
-04  ✓
-05  ✕
-```
-
-Selecting a question shows:
-
-- question
-- user's answer
-- correct answer
-- explanation if available
-
-The review page should remain focused on learning.
-
----
-
-# 17. Cards and Surfaces
-
-Cards are useful but should not dominate the entire interface.
-
-Use surfaces to establish hierarchy.
-
-Preferred hierarchy:
-
-```text
-Page background
-    ↓
-Main surface
-    ↓
-Question surface
-    ↓
-Interactive elements
-```
-
-Avoid:
-
-```text
-card
-  → card
-      → card
-          → card
-```
-
-Every card should have a purpose.
-
-The question itself should feel like the main object, not a card inside a dashboard full of cards.
-
----
-
-# 18. Borders and Shadows
-
-Prefer subtle borders over shadows.
-
-Default cards should use:
-
-- dark surface
-- thin subtle border
-- small radius
-
-Avoid:
-
-- giant shadows
-- glowing shadows
-- gold outer glows
-- floating glass panels
-
-Depth should come primarily from surface contrast.
-
----
-
-# 19. Border Radius
-
-Use moderate rounding.
-
-Recommended direction:
-
-- buttons: medium radius
-- cards: medium radius
-- input fields: medium radius
-- question container: medium radius
-
-Avoid extremely rounded "pill everything" styling.
-
-Pills may be used for:
-
-- small status labels
-- difficulty indicators
-- compact metadata
-
-but not as the default shape for every element.
-
----
-
-# 20. Gold Interaction Language
-
-Gold should communicate interaction.
-
-Examples:
-
-### Selected option
-
-```text
-dark surface
-subtle gold border
-very subtle gold-tinted background
-```
-
-### Primary CTA
-
-```text
-solid gold
-dark text
-```
-
-### Current question
-
-```text
-gold number / indicator
-```
-
-### Progress
-
-```text
-thin gold progress indicator
-```
-
-Gold should communicate:
-
-> "This is where your attention should go."
-
----
-
-# 21. Micro-interactions
-
-Interactions should be subtle.
-
-Allowed:
-
-- small opacity changes
-- slight border transitions
-- subtle background transitions
-- short slide/fade transitions
-- button press feedback
-
-Avoid:
-
-- excessive motion
-- floating animations
-- glowing hover states
-- large scaling effects
-- decorative animation
-
-The application should feel responsive but calm.
-
----
-
-# 22. Responsive Behavior
-
-Desktop:
-
-```text
-┌───────────────────────────────┬──────────┐
-│ question                      │ nav      │
-│                               │          │
-└───────────────────────────────┴──────────┘
-```
-
-Mobile:
-
-```text
-┌──────────────────────────┐
-│ question                 │
-│                          │
-│                          │
-└──────────────────────────┘
-
-Question 7 / 20
-
-[ ← ]              [ → ]
-
-01 02 03 04 05 06 07 ...
-```
-
-The right navigation panel should become a compact navigation component on mobile.
-
-The question remains the primary content.
-
-Do not create horizontal scrolling for the main application layout.
-
----
-
-# 23. Landing → Application Transition
-
-The landing page and application should feel like the same product.
-
-Landing:
-
-- spacious
-- editorial
-- focused
-
-Application:
-
-- dense enough for productivity
-- structured
-- focused
-
-The transition should not feel like entering a completely different dashboard.
-
----
-
-# 24. Visual Identity
-
-Answering should be recognizable through:
-
-1. dark neutral foundation
-2. restrained gold accent
-3. strong typography
-4. generous spacing
-5. structured worksheet layout
-6. narrow question navigation
-7. minimal decorative effects
-
-The identity should come from **composition and restraint**, not visual effects.
-
----
-
-# 25. Explicit Anti-Patterns
-
-Do not introduce these without explicit approval:
-
-- blue/purple AI gradients
-- cyan neon accents
-- glowing gold borders
-- excessive glassmorphism
-- excessive blur
-- floating 3D cards
-- dashboard charts
-- unnecessary illustrations
-- excessive rounded containers
-- giant shadows
-- animated background particles
-- AI-generated decorative imagery
-- overly colorful question states
-- excessive emoji usage
-- excessive badges
-- gamified XP/levels
-
----
-
-# 26. Relationship With PRODUCT.md
-
-`PRODUCT.md` defines what Answering does.
-
-This document defines how the experience should feel and how the main screens are structured.
-
-Do not change product scope through visual design decisions.
-
-If a design idea requires a new product capability, treat it as a product decision first.
-
----
-
-# 27. Relationship With FORMAT.md
-
-`FORMAT.md` defines the worksheet input contract.
-
-The visual design must adapt to the supported question types.
-
-Do not change the worksheet syntax merely to make the UI implementation easier without explicitly revisiting `FORMAT.md`.
-
----
-
-# 28. Design Priority
-
-When making visual decisions, prioritize in this order:
-
-1. Readability
-2. Answering questions efficiently
-3. Clear navigation
-4. Focus
-5. Consistency
-6. Visual identity
-7. Decoration
-
-If a decorative idea makes the worksheet harder to use, remove the decoration.
-
----
-
-# 29. Core Design Statement
-
-> Answering should feel like a beautifully designed digital study sheet — not an AI dashboard.
-
-Dark, restrained, focused, and recognizable.
-
-Gold should guide attention, not dominate the interface.
-
-The interface should feel crafted rather than generated.
+Two-button layout:
 
 ```
+┌─────────────┬─────────────┐
+│    True     │    False    │
+└─────────────┴─────────────┘
+```
+
+Each button follows button variant styling.
+
+Selected button uses Primary visual treatment.
+
+## Short Answer
+
+```css
+width: 100%;
+padding: var(--space-3) var(--space-4);
+background: var(--bg-deep);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
+font-size: var(--text-base);
+```
+
+Focus:
+```css
+border-color: var(--gold-500);
+box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+```
+
+---
+
+# Feedback States
+
+## Correct Feedback
+
+```css
+background: var(--success-900);
+border: 1px solid var(--success-500);
+border-radius: var(--radius-lg);
+padding: var(--space-6);
+```
+
+Icon: ✓ (large, `--success-500`)
+
+Heading:
+```css
+color: var(--success-500);
+font-size: var(--text-xl);
+font-weight: var(--font-semibold);
+```
+
+## Incorrect Feedback
+
+```css
+background: var(--error-900);
+border: 1px solid var(--error-500);
+border-radius: var(--radius-lg);
+padding: var(--space-6);
+```
+
+Icon: ✕ (large, `--error-500`)
+
+Heading:
+```css
+color: var(--error-500);
+font-size: var(--text-xl);
+font-weight: var(--font-semibold);
+```
+
+## Explanation Box
+
+```css
+background: var(--bg-surface);
+border: 1px solid var(--border-subtle);
+border-radius: var(--radius-md);
+padding: var(--space-4);
+margin-top: var(--space-4);
+```
+
+Label:
+```css
+font-size: var(--text-sm);
+font-weight: var(--font-medium);
+color: var(--text-tertiary);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+```
+
+---
+
+# Navigation
+
+## Desktop Sidebar (Quiz/Exam)
+
+Width: 240px (fixed)
+
+```css
+background: var(--bg-deep);
+border-left: 1px solid var(--border-subtle);
+padding: var(--space-4);
+```
+
+Question grid: 4 columns
+
+Each cell:
+```css
+aspect-ratio: 1;
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
+font-size: var(--text-sm);
+font-weight: var(--font-medium);
+```
+
+States:
+- Unanswered: `--border-default`, `--text-muted`
+- Answered: `--border-strong`, `--text-primary`, `--bg-elevated`
+- Current: `--gold-500` border, `--gold-900` background, `--gold-400` text
+
+## Mobile Navigation
+
+Progress dots:
+
+```css
+width: 8px;
+height: 8px;
+border-radius: var(--radius-full);
+```
+
+States:
+- Unanswered: `--border-subtle`
+- Answered: `--text-secondary`
+- Current: `--gold-500`
+
+Prev/Next buttons:
+
+```css
+padding: var(--space-3) var(--space-6);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-md);
+```
+
+---
+
+# Screen Specifications
+
+## Home
+
+Layout: Centered, generous spacing
 
 ```
-````
+[ Large vertical spacing ]
+
+ANSWERING (--text-6xl, semibold)
+
+Practice questions.
+Without the back-and-forth.
+
+[ Supporting description ]
+
+[ Large vertical spacing ]
+
+┌───────────────────┬───────────────────┐
+│ Generate Prompt   │ Start Practicing  │
+│ [Description]     │ [Description]     │
+└───────────────────┴───────────────────┘
+```
+
+**Generate Prompt card:**
+- Hover: gold border
+- Title: `--text-2xl`, gold on hover
+- Description: `--text-secondary`
+
+**Start Practicing card:**
+- Same treatment
+- Both cards equal visual weight
+
+Background: `--bg-primary`, possibly subtle texture.
+
+## Prompt Generator
+
+Layout: Standard application layout
+
+**Header:**
+```css
+background: var(--bg-deep);
+border-bottom: 1px solid var(--border-subtle);
+padding: var(--space-4);
+```
+
+**Configuration section:**
+
+Card with fields:
+- Question count (number input)
+- Difficulty (button group)
+- Question types (toggle buttons)
+- Source (button group)
+- Topic (textarea)
+
+Button groups use selected state: gold border + gold-tinted background.
+
+**Generated prompt:**
+
+```css
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-lg);
+padding: var(--space-6);
+```
+
+Preview:
+```css
+font-family: var(--font-mono);
+font-size: var(--text-sm);
+background: var(--bg-deep);
+border: 1px solid var(--border-subtle);
+border-radius: var(--radius-md);
+```
+
+Copy button: Primary style.
+
+## Worksheet Input
+
+Centered modal-style layout.
+
+Max width: `--width-lg`
+
+Textarea:
+```css
+min-height: 240px;
+font-family: var(--font-mono);
+background: var(--bg-deep);
+```
+
+Load button: Primary.
+
+Validation errors:
+
+```css
+background: var(--error-900);
+border: 1px solid var(--error-500);
+border-radius: var(--radius-md);
+padding: var(--space-4);
+```
+
+## Mode Selection
+
+Centered layout, generous spacing.
+
+Worksheet info:
+- Title: `--text-4xl`
+- Description: `--text-lg`, `--text-secondary`
+- Question count: `--text-base`, `--text-tertiary`
+
+Mode cards: Two-column grid (desktop), stacked (mobile)
+
+Each card:
+```css
+padding: var(--space-8);
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-lg);
+```
+
+Hover:
+```css
+border-color: var(--gold-500);
+background: var(--bg-elevated-hover);
+```
+
+Title: `--text-2xl`, gold on hover
+
+## Quiz Mode
+
+Layout: Main content + sidebar (desktop)
+
+**Question card:**
+
+```css
+max-width: var(--width-4xl);
+background: var(--bg-elevated);
+border: 1px solid var(--border-default);
+border-radius: var(--radius-lg);
+padding: var(--space-8);
+```
+
+Question number:
+
+```css
+font-size: var(--text-xs);
+font-weight: var(--font-medium);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-tertiary);
+margin-bottom: var(--space-2);
+```
+
+Question text:
+
+```css
+font-size: var(--text-xl);
+font-weight: var(--font-medium);
+line-height: var(--leading-relaxed);
+color: var(--text-primary);
+margin-bottom: var(--space-6);
+```
+
+Submit button: Primary (full width on mobile, inline on desktop)
+
+Feedback: Appears below question card.
+
+Navigation: Previous (secondary) / Submit (primary)
+
+## Exam Mode
+
+Same layout as Quiz, with differences:
+
+- No feedback during exam
+- Submit confirmation:
+
+```css
+background: var(--warning-900);
+border: 1px solid var(--warning-500);
+border-radius: var(--radius-lg);
+padding: var(--space-6);
+```
+
+Navigation sidebar shows:
+- Answered (not correct/incorrect)
+- Unanswered
+- Current
+
+## Result Screen
+
+Centered layout.
+
+Score display:
+
+```css
+font-size: var(--text-6xl);
+font-weight: var(--font-semibold);
+color: var(--text-primary);
+text-align: center;
+margin-bottom: var(--space-4);
+```
+
+Percentage:
+
+```css
+font-size: var(--text-3xl);
+color: var(--text-secondary);
+```
+
+Breakdown:
+
+```
+Correct: X
+Incorrect: X
+Unanswered: X
+```
+
+Actions:
+- Review Answers (Primary)
+- Start Over (Secondary)
+
+**Anti-pattern:**
+Do NOT add circular progress charts, trophies, confetti, or gamification.
+
+## Review Mode
+
+Layout: Same as Quiz/Exam (main + sidebar)
+
+Sidebar shows:
+- ✓ Correct (success color)
+- ✕ Incorrect (error color)
+- − Unanswered (muted)
+
+Question card shows:
+- Question
+- User's answer (highlighted if incorrect)
+- Correct answer
+- Explanation
+
+Navigate through all questions.
+
+Exit Review: Back button returns to Result screen.
+
+---
+
+# Component Patterns
+
+## Cards
+
+Use cards for:
+- Question containers
+- Mode selection
+- Result summaries
+- Configuration sections
+
+Do NOT use cards for:
+- Every text block
+- Navigation items
+- Already-grouped content
+
+## Dividers
+
+Use dividers to separate:
+- Sections
+- List items
+- Content blocks
+
+```css
+border-top: 1px solid var(--border-subtle);
+```
+
+## Badges
+
+Use for:
+- Question type labels
+- Status indicators
+- Counts
+
+```css
+padding: var(--space-1) var(--space-3);
+font-size: var(--text-xs);
+font-weight: var(--font-medium);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+border-radius: var(--radius-full);
+background: var(--bg-surface);
+color: var(--text-tertiary);
+```
+
+## Empty States
+
+Centered, calm presentation.
+
+Icon (optional): large, `--text-muted`
+
+Heading:
+
+```css
+font-size: var(--text-xl);
+color: var(--text-primary);
+margin-bottom: var(--space-2);
+```
+
+Description:
+
+```css
+font-size: var(--text-base);
+color: var(--text-secondary);
+```
+
+Action: Primary button.
+
+## Error States
+
+```css
+background: var(--error-900);
+border: 1px solid var(--error-500);
+border-radius: var(--radius-md);
+padding: var(--space-4);
+```
+
+Heading:
+
+```css
+font-size: var(--text-lg);
+font-weight: var(--font-semibold);
+color: var(--error-500);
+```
+
+## Loading States
+
+Minimal spinner or skeleton.
+
+Do NOT use:
+- Excessive loading animations
+- Progress bars for fast operations
+- Decorative loaders
+
+---
+
+# Responsive Design
+
+## Breakpoints
+
+```css
+--breakpoint-sm: 640px;      /* Mobile large */
+--breakpoint-md: 768px;      /* Tablet */
+--breakpoint-lg: 1024px;     /* Desktop */
+--breakpoint-xl: 1280px;     /* Desktop large */
+--breakpoint-2xl: 1536px;    /* Desktop extra large */
+```
+
+## Responsive Strategy
+
+### Mobile-first approach
+
+Start with mobile layout, enhance for desktop.
+
+### Key responsive changes:
+
+**Desktop (≥1024px):**
+- Sidebar navigation visible
+- Two-column mode selection
+- Wider question cards
+- Inline button groups
+
+**Mobile (<1024px):**
+- Bottom navigation (dots)
+- Stacked mode selection
+- Full-width question cards
+- Stacked button groups
+
+### Touch targets
+
+Minimum: 44px × 44px on mobile.
+
+Buttons and interactive elements should be comfortable for thumbs.
+
+### Horizontal scrolling
+
+NEVER introduce horizontal scrolling for main content.
+
+---
+
+# Accessibility
+
+## Focus States
+
+All interactive elements must have visible focus states:
+
+```css
+outline: 2px solid var(--gold-500);
+outline-offset: 2px;
+```
+
+## Keyboard Navigation
+
+- Tab through all interactive elements
+- Enter/Space activates buttons
+- Arrow keys navigate question grid (optional enhancement)
+- Escape closes modals
+
+## Color Contrast
+
+Text on backgrounds must meet WCAG AA:
+
+- `--text-primary` on `--bg-primary`: ≥4.5:1
+- `--text-secondary` on `--bg-elevated`: ≥4.5:1
+- `--gold-500` on `--bg-primary`: ≥3:1 (large text)
+
+## Semantic HTML
+
+- Use `<button>` for actions
+- Use `<label>` for form fields
+- Use `<nav>` for navigation
+- Use headings hierarchy (`<h1>`, `<h2>`, etc.)
+
+## Screen Reader Support
+
+- Provide `aria-label` for icon-only buttons
+- Announce feedback state changes
+- Label form fields correctly
+- Provide status updates for Quiz/Exam progress
+
+## Reduced Motion
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Color Independence
+
+Do NOT rely only on color to indicate:
+- Correctness (use icons: ✓ ✕)
+- Selection (use borders + background)
+- Focus (use outline)
+
+---
+
+# Design Tokens
+
+Complete token reference for implementation:
+
+```css
+/* Colors */
+--bg-primary: #0B0B0A;
+--bg-deep: #0E0E0D;
+--bg-elevated: #141412;
+--bg-elevated-hover: #1A1917;
+--bg-surface: #1E1D1A;
+--bg-subtle: #242320;
+
+--gold-500: #C9A227;
+--gold-400: #C9A94B;
+--gold-600: #A88820;
+--gold-900: #4D3E0F;
+
+--text-primary: #F5F3EB;
+--text-secondary: #C4C1B8;
+--text-tertiary: #8F8C84;
+--text-muted: #5E5C56;
+--text-on-gold: #0B0B0A;
+
+--border-subtle: #242320;
+--border-default: #3A3831;
+--border-strong: #4A4740;
+
+--success-500: #4A7C59;
+--success-900: #1A2B20;
+--error-500: #B04449;
+--error-900: #3D1618;
+--warning-500: #A88852;
+--warning-900: #3D3020;
+
+/* Typography */
+--font-sans: "Inter", system-ui, sans-serif;
+--font-mono: "JetBrains Mono", monospace;
+
+--text-xs: 0.75rem;
+--text-sm: 0.875rem;
+--text-base: 1rem;
+--text-lg: 1.125rem;
+--text-xl: 1.25rem;
+--text-2xl: 1.5rem;
+--text-3xl: 1.875rem;
+--text-4xl: 2.25rem;
+--text-5xl: 3rem;
+--text-6xl: 3.75rem;
+
+--font-normal: 400;
+--font-medium: 500;
+--font-semibold: 600;
+
+--leading-tight: 1.25;
+--leading-normal: 1.5;
+--leading-relaxed: 1.625;
+
+/* Spacing */
+--space-1: 0.25rem;
+--space-2: 0.5rem;
+--space-3: 0.75rem;
+--space-4: 1rem;
+--space-6: 1.5rem;
+--space-8: 2rem;
+--space-12: 3rem;
+--space-16: 4rem;
+--space-20: 5rem;
+--space-24: 6rem;
+
+/* Radius */
+--radius-sm: 4px;
+--radius-md: 6px;
+--radius-lg: 8px;
+--radius-xl: 12px;
+--radius-full: 9999px;
+
+/* Motion */
+--duration-fast: 100ms;
+--duration-normal: 200ms;
+--duration-slow: 300ms;
+
+--ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+/* Layout */
+--width-lg: 32rem;
+--width-2xl: 42rem;
+--width-4xl: 56rem;
+--width-6xl: 72rem;
+```
+
+---
+
+# Visual Anti-Patterns
+
+## What Answering Must NOT Look Like
+
+### AI Dashboard Aesthetic
+
+❌ Purple/blue gradients
+❌ Cyan neon accents
+❌ Glowing cards
+❌ Excessive glassmorphism
+❌ Floating holographic elements
+❌ Animated particles
+❌ Giant gradient text
+❌ Decorative AI imagery
+
+### Generic SaaS
+
+❌ Excessive rounded cards (24px+ radius)
+❌ Giant shadows everywhere
+❌ Colorful dashboard charts
+❌ Statistics overload
+❌ Unnecessary data visualization
+❌ Corporate blue
+❌ Stock illustrations
+
+### Over-Gamified Quiz UI
+
+❌ Confetti animations
+❌ Trophy graphics
+❌ XP/level systems
+❌ Streak counters
+❌ Badges everywhere
+❌ Leaderboards
+❌ Excessive celebrations
+❌ Childish colors
+
+### Flat Minimalism
+
+❌ No depth at all
+❌ Pure black backgrounds
+❌ No borders
+❌ No visual hierarchy
+❌ Terminal-only aesthetic
+❌ Monochrome text-only interface
+
+### Enterprise Admin Panel
+
+❌ Sidebar with 20 menu items
+❌ Tabs everywhere
+❌ Data tables
+❌ Complex form layouts
+❌ Small gray text
+❌ Excessive nested menus
+
+### Bad Interaction Patterns
+
+❌ Bouncing animations
+❌ Excessive scaling
+❌ Continuous motion
+❌ Horizontal scrolling
+❌ Floating elements
+❌ Auto-playing effects
+❌ Delays before actions
+
+---
+
+# Implementation Guidelines
+
+## For Implementation Agent
+
+### Phase 1: Foundation
+
+1. Update CSS design tokens
+2. Implement color system
+3. Implement typography scale
+4. Implement spacing system
+
+### Phase 2: Components
+
+1. Update button variants
+2. Update form controls
+3. Update answer options
+4. Update feedback components
+
+### Phase 3: Layouts
+
+1. Update Home page
+2. Update Prompt Generator
+3. Update Mode Selection
+4. Update Quiz/Exam layouts
+5. Update Result/Review screens
+
+### Phase 4: Polish
+
+1. Add micro-interactions
+2. Refine responsive behavior
+3. Test accessibility
+4. Verify contrast ratios
+
+## Testing Checklist
+
+- [ ] All screens feel cohesive
+- [ ] Gold accent is restrained, not everywhere
+- [ ] Typography hierarchy is clear
+- [ ] Interactive states are obvious
+- [ ] Keyboard navigation works
+- [ ] Focus states are visible
+- [ ] Touch targets are large enough (mobile)
+- [ ] No horizontal scrolling
+- [ ] Loading states are calm
+- [ ] Error states are helpful
+- [ ] Reduced motion works
+- [ ] Dark theme is consistent
+
+## Do NOT
+
+- Add new product features
+- Change information architecture
+- Modify worksheet format
+- Add animations for decoration
+- Make everything gold
+- Use excessive shadows
+- Create visual clutter
+- Add unnecessary illustrations
+
+## Core Constraint
+
+> The visual design must feel modern and polished WITHOUT looking like every other AI-generated SaaS website.
+
+The answer is in:
+- Typography
+- Composition
+- Spacing
+- Subtle depth
+- Restrained gold
+- Strong interactive states
+- Intentional motion
+- Excellent answer controls
+- Focused layouts
+
+NOT in:
+- Gradients
+- Glow
+- Glass
+- Giant cards
+- Decorative AI visuals
+
+---
+
+# Final Quality Bar
+
+The redesigned Answering should feel:
+
+✓ **Modern** — Contemporary interface patterns, refined execution
+✓ **Polished** — Attention to detail in every interaction
+✓ **Intentional** — Every element has a clear purpose
+✓ **Academic** — Serious study tool, not a toy
+✓ **Distinctive** — Recognizable Answering identity
+✓ **Comfortable** — Pleasant to use for extended sessions
+✓ **Focused** — Question content dominates UI chrome
+✓ **Interactive** — States and feedback are clear
+✓ **Accessible** — Keyboard, screen reader, reduced motion support
+✓ **Cohesive** — All screens belong to the same product
+
+The original black + gold identity is preserved and strengthened.
+
+---
+
+**End of Design System v2**

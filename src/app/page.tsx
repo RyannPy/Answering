@@ -21,28 +21,33 @@ export default function Home() {
   if (view === "worksheet-input") {
     return (
       <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center p-6">
-        <div className="max-w-xl w-full space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-[var(--text-primary)]">
-              Paste your Answering worksheet below.
+        <div className="container-tight">
+          <div className="text-center mb-8">
+            <h2 className="heading-page mb-3">
+              Import Worksheet
             </h2>
-            <p className="text-[var(--text-secondary)]">
-              Use Answering Worksheet Format v1.
+            <p className="text-supporting">
+              Paste your worksheet in Answering Worksheet Format v1.
             </p>
           </div>
 
           {parseErrors && parseErrors.length > 0 ? (
-            <div className="bg-[var(--bg-elevated)] border border-[var(--error)]/30 rounded-lg p-4">
-              <div className="text-xl font-semibold text-[var(--error)] mb-2">
-                Could not load worksheet.
-              </div>
-              <div className="space-y-2 text-[var(--text-primary)]">
-                {parseErrors.map((error, idx) => (
-                  <div key={idx}>
-                    {error.question && `Question ${error.question}: `}
-                    {error.message}
+            <div className="feedback-incorrect p-6 mb-6 animate-fade-in">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-2xl text-[var(--error-500)]">✕</div>
+                <div>
+                  <div className="text-xl font-semibold text-[var(--error-500)] mb-2">
+                    Could not load worksheet
                   </div>
-                ))}
+                  <div className="space-y-2 text-supporting">
+                    {parseErrors.map((error, idx) => (
+                      <div key={idx}>
+                        {error.question && `Question ${error.question}: `}
+                        {error.message}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           ) : null}
@@ -50,24 +55,29 @@ export default function Home() {
           <textarea
             value={worksheetInput}
             onChange={(e) => setWorksheetInput(e.target.value)}
-            placeholder="@worksheet
-  title: My Worksheet
-  description: Optional description
+            placeholder={`@worksheet
+title: My Worksheet
+description: Optional description
 
-  @question
-  type: mc
-  question: Sample question
-  options:
-   - Option A
-   - Option B
-  answer: 1
-  @end"
-            className="w-full min-h-[200px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--gold-primary)] focus:border-[var(--gold-primary)] px-4 py-2 resize-y"
+@question
+type: mc
+question: Sample question
+options:
+ - Option A
+ - Option B
+answer: 1
+@end`}
+            className="textarea font-mono text-sm min-h-[300px] mb-6"
           />
-          <div className="flex justify-end space-x-3">
+          
+          <div className="flex justify-end gap-3">
             <button
-              onClick={() => setView("home")}
-              className="px-6 py-2 rounded-lg border border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors"
+              onClick={() => {
+                setView("home");
+                setParseErrors(null);
+                setWorksheetInput("");
+              }}
+              className="btn btn-secondary"
             >
               Cancel
             </button>
@@ -82,7 +92,7 @@ export default function Home() {
                   setParseErrors(result.errors);
                 }
               }}
-              className="px-6 py-2 rounded-lg bg-[var(--gold-primary)] text-[var(--bg-primary)] hover:bg-[var(--gold-bright)] transition-colors"
+              className="btn btn-primary"
             >
               Load Worksheet
             </button>
@@ -104,49 +114,51 @@ export default function Home() {
 
   // Home view
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-[var(--text-primary)] mb-4">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center py-20">
+      <div className="container">
+        {/* Hero */}
+        <div className="text-center mb-20">
+          <h1 className="heading-display mb-6">
             Answering
           </h1>
-          <p className="text-xl text-[var(--text-secondary)] mb-2">
+          <p className="text-2xl text-[var(--text-secondary)] mb-4 max-w-2xl mx-auto leading-relaxed">
             Practice questions.
             <br />
             Without the back-and-forth.
           </p>
-          <p className="text-[var(--text-secondary)]">
+          <p className="text-supporting max-w-xl mx-auto">
             Turn structured questions into an interactive worksheet you can actually use.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Action cards */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <button
             onClick={() => setView("prompt-generator")}
-            className="p-8 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--gold-primary)] hover:bg-[var(--bg-secondary)] transition-all text-left group"
+            className="card-interactive p-10 text-left group"
           >
-            <div className="text-2xl font-semibold text-[var(--text-primary)] mb-3 group-hover:text-[var(--gold-bright)] transition-colors">
+            <div className="heading-section mb-4 group-hover:text-[var(--gold-400)] transition-colors duration-[var(--duration-fast)]">
               Generate Prompt
             </div>
-            <div className="text-[var(--text-secondary)] mb-4">
+            <div className="text-supporting mb-6 leading-relaxed">
               Create a prompt for external AI to generate worksheet questions.
             </div>
-            <div className="text-sm text-[var(--text-muted)]">
+            <div className="text-metadata text-[var(--text-tertiary)]">
               Configure question count, difficulty, and types
             </div>
           </button>
 
           <button
             onClick={() => setView("worksheet-input")}
-            className="p-8 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--gold-primary)] hover:bg-[var(--bg-secondary)] transition-all text-left group"
+            className="card-interactive p-10 text-left group"
           >
-            <div className="text-2xl font-semibold text-[var(--text-primary)] mb-3 group-hover:text-[var(--gold-bright)] transition-colors">
+            <div className="heading-section mb-4 group-hover:text-[var(--gold-400)] transition-colors duration-[var(--duration-fast)]">
               Start Practicing
             </div>
-            <div className="text-[var(--text-secondary)] mb-4">
+            <div className="text-supporting mb-6 leading-relaxed">
               Paste your Answering worksheet to begin.
             </div>
-            <div className="text-sm text-[var(--text-muted)]">
+            <div className="text-metadata text-[var(--text-tertiary)]">
               Quiz or Exam mode with immediate or delayed feedback
             </div>
           </button>

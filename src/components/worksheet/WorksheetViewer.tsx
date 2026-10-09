@@ -185,10 +185,10 @@ export function WorksheetViewer({ worksheet }: WorksheetViewerProps) {
                         aspect-square rounded-lg border text-sm font-medium transition-colors
                         ${
                           isCurrent
-                            ? "border-[var(--gold-primary)] bg-[var(--gold-primary)]/10 text-[var(--gold-bright)]"
+                            ? "border-[var(--gold-500)] border-2 bg-[var(--gold-900)] text-[var(--gold-400)]"
                             : isAnswered
-                              ? "border-[var(--border-strong)] bg-[var(--bg-elevated)] text-[var(--text-primary)]"
-                              : "border-[var(--border-subtle)] bg-[var(--bg-deep)] text-[var(--text-muted)] hover:border-[var(--border-strong)]"
+                              ? "border-[var(--border-strong)] bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:bg-[var(--bg-elevated-hover)]"
+                              : "border-[var(--border-default)] bg-transparent text-[var(--text-muted)] hover:border-[var(--border-strong)] hover:text-[var(--text-secondary)]"
                         }
                       `}
                     >

@@ -18,8 +18,8 @@ export function ShortRenderer({
   showAnswer = false,
 }: ShortRendererProps) {
   return (
-    <div className="space-y-3">
-      <div className="text-base text-[var(--text-primary)] font-medium mb-1">
+    <div className="space-y-4">
+      <div className="text-question">
         {question.question}
       </div>
 
@@ -29,20 +29,15 @@ export function ShortRenderer({
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
         placeholder="Type your answer..."
-        className={`
-          w-full p-2 rounded-md border bg-[var(--bg-elevated)] text-[var(--text-primary)]
-          placeholder:text-[var(--text-muted)]
-          focus:border-[var(--gold-primary)] focus:outline-none
-          ${disabled ? "cursor-not-allowed opacity-60" : "border-[var(--border-subtle)]"}
-        `}
+        className="input"
       />
 
       {showAnswer && (
-        <div className="mt-2 p-2 rounded-md border bg-[var(--bg-elevated)] border-[var(--border-subtle)]">
-          <div className="text-xs text-[var(--text-secondary)] mb-1">
+        <div className="surface p-4">
+          <div className="text-metadata mb-2">
             Accepted answers:
           </div>
-          <div className="text-[var(--text-primary)] text-xs">
+          <div className="text-option">
             {question.answer.join(", ")}
           </div>
         </div>
